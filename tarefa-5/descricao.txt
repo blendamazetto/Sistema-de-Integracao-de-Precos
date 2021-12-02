@@ -6,6 +6,7 @@ Os dados serão coletados do departamento de notebooks de cada loja.
 Os atributos extraídos serão:
 - Nome do modelo
 - Preço
+- Classificação
 - Sistema Operacional
 - Processador
 - Memoria RAM
