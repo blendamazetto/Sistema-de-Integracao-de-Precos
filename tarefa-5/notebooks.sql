@@ -12,7 +12,7 @@ CREATE TABLE lojas_notebook.notebook(
 CREATE TABLE lojas_notebook.produto(
     id SERIAL,
     nome_loja CHAR(50),
-    preço FLOAT,
+    preço NUMERIC(6, 2),
     disponibilidade BOOL,
     notebook_nome CHAR(200),
     CONSTRAINT pk_produto PRIMARY KEY(id),
