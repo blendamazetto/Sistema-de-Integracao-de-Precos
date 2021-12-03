@@ -7,13 +7,6 @@ Os atributos extraídos serão:
 - Nome do modelo
 - Preço
 - Classificação
-- Sistema Operacional
-- Processador
-- Memoria RAM
-- SSD
-- HD
-- Placa de Vídeo
-- Polegadas da Tela
-- Resolução
-- Peso
-- Cor
+- Disponibilidade
+- Descrição
+- Marca
