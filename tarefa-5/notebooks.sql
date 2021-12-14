@@ -17,7 +17,7 @@ CREATE TABLE lojas_notebook.loja(
     CONSTRAINT pk_loja PRIMARY KEY(nome_loja)
 )
 
-CREATE TABLE lojas_notebook.produto(
+CREATE TABLE lojas_notebook.loja_vende_notebook(
     id SERIAL,
     nome_notebook CHAR(50),
     nome_loja CHAR(50),
