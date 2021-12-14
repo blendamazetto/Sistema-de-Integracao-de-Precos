@@ -10,24 +10,23 @@ def extract_page_info(soup):
         aux = soup.find('span', 'a-price a-text-price a-size-medium')
         result.append(aux.find('span', 'a-offscreen').text)
     except:
-        result.append('0')
-    table = soup.find(id='productDetails_techSpec_section_1')
-    flag = 0
-    marca = ''
-    modelo = ''
-    for aux in table.find_all('tr'):
-        key = aux.th.text
-        if key == ' Marca ':
-            marca = aux.td.text.replace(' ', '')[2:]
-            if flag:
-                break         
-        elif key == ' Número do modelo ':
-            modelo = aux.td.text.replace(' ', '')[2:]
-            if flag:
-                break
-            flag = 1
-    result.append(modelo)
-    result.append(marca)
+        result.append('')
+    try:
+        table = soup.find(id='productDetails_techSpec_section_1')
+        marca = ''
+        modelo = ''
+        for aux in table.find_all('tr'):
+            key = aux.th.text
+            if key == ' Marca ':
+                marca = aux.td.text.replace(' ', '')[2:]
+            elif key == ' Número do modelo ':
+                modelo = aux.td.text.replace(' ', '')[2:]
+        result.append(modelo)
+        result.append(marca)
+    except:
+        result.append('')
+        result.append('')
+        print("Erro especificações técnicas")
     return result
 
 def extract_product(item, driver):
