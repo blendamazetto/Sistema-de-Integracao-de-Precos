@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package jdbc;
+package connection.factory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,59 +15,60 @@ import java.util.Properties;
  *
  * @author blend
  */
-public class PgConnectionFactory extends ConnectionFactory {
-    
+public class PostgreConnectionFactory extends ConnectionFactory {
+
     private String dbHost;
     private String dbPort;
     private String dbName;
     private String dbUser;
-    private String dbPassword;
-
-    public PgConnectionFactory() {
-        
+    private String dbPassword;    
+    
+    public PostgreConnectionFactory() {
     }
-    public void readProperties() throws IOException{
+
+    public void readProperties() throws IOException {
         Properties properties = new Properties();
-        
-        try{
+
+        try {
             InputStream input = this.getClass().getClassLoader().getResourceAsStream(propertiesPath);
             properties.load(input);
-            
+
             dbHost = properties.getProperty("host");
             dbPort = properties.getProperty("port");
             dbName = properties.getProperty("name");
             dbUser = properties.getProperty("user");
             dbPassword = properties.getProperty("password");
-        } catch (IOException ex){
+        } catch (IOException ex) {
             System.err.println(ex.getMessage());
-            
-            throw new IOException("Erro ao obter informacoes do banco de dados");
-        }
-    }
 
+            throw new IOException("Erro ao obter informações do banco de dados.");
+        }
+    }    
+    
     @Override
     public Connection getConnection() throws IOException, SQLException, ClassNotFoundException {
         Connection connection = null;
-        
-        try{
+
+        try {
             Class.forName("org.postgresql.Driver");
-            
+
             readProperties();
-            
-            String url = "jdbc :postgresql://" + dbHost + ":" + dbPort + "/" + dbName;
-            
+
+            String url = "jdbc:postgresql://" + dbHost + ":" + dbPort + "/" + dbName;
+
             connection = DriverManager.getConnection(url, dbUser, dbPassword);
-            
-        } catch (ClassNotFoundException ex){
+        } catch (ClassNotFoundException ex) {
             System.err.println(ex.getMessage());
-            
+
             throw new ClassNotFoundException("Erro de conexão ao banco de dados.");
-        } catch(SQLException ex){
+        } catch (SQLException ex) {
             System.err.println(ex.getMessage());
-            
-            throw new SQLException("Erro na conexao com o banco de dados");
+
+            throw new SQLException("Erro de conexão ao banco de dados.");
         }
+
         return connection;
+
     }
     
 }

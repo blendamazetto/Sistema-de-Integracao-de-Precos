@@ -3,17 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
 package dao;
-
-import java.sql.SQLException;
-import model.User;
+import model.Notebook;
 
 /**
  *
  * @author blend
  */
-public interface UserDAO extends DAO<User> {
-    
-    public void authenticate(User usuario) throws SQLException, SecurityException;
-    public User getByLogin(String login) throws SQLException;
+public interface NotebookDAO extends DAO<Notebook> {
     
 }

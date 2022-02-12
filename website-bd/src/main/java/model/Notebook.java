@@ -8,24 +8,37 @@ package model;
  *
  * @author blend
  */
+
 public class Notebook {
-    private String nome_loja;
-    private String url_site;
+    
+    private Integer id_notebook;
+    private String modelo;
+    private String descricao;
 
-    public String getNome_loja() {
-        return nome_loja;
+    public Integer getId_notebook() {
+        return id_notebook;
     }
 
-    public void setNome_loja(String nome_loja) {
-        this.nome_loja = nome_loja;
+    public void setId_notebook(Integer id_notebook) {
+        this.id_notebook = id_notebook;
     }
 
-    public String getUrl_site() {
-        return url_site;
+    public String getModelo() {
+        return modelo;
     }
 
-    public void setUrl_site(String url_site) {
-        this.url_site = url_site;
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
     }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+    
+    
     
 }

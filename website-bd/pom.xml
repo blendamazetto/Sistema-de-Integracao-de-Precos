@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>br.uel</groupId>
-    <artifactId>website-bd</artifactId>
+    <artifactId>notebooks</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>website-bd</name>
+    <name>notebooks</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
@@ -29,9 +29,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
-                <extensions>false</extensions>
                 <configuration>
-                <failOnMissingWebXml>false</failOnMissingWebXml>
                     <source>1.7</source>
                     <target>1.7</target>
                     <compilerArguments>

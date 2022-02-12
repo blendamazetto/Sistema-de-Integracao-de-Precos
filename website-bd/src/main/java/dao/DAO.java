@@ -10,14 +10,10 @@ import java.util.List;
 /**
  *
  * @author blend
+ * @param <T>
  */
 public interface DAO<T> {
-    
-    public void create(T t) throws SQLException;
-    public T read(Integer id) throws SQLException;
-    public void updatee(T t) throws SQLException;
-    public void delete(Integer id) throws SQLException;
-    
-    public List <T> all() throws SQLException;
+
+    public List<T> all() throws SQLException;  
     
 }
