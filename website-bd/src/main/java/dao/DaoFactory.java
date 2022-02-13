@@ -6,30 +6,26 @@ package dao;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import connection.factory.ConnectionFactory;
+import jdbc.ConnectionFactory;
 
-/**
- *
- * @author blend
- */
 public abstract class DAOFactory implements AutoCloseable {
-    
+
     protected Connection connection;
-     
+
     public static DAOFactory getInstance() throws ClassNotFoundException, IOException, SQLException {
         Connection connection = ConnectionFactory.getInstance().getConnection();
         DAOFactory factory;
-        
+
         if (ConnectionFactory.getDbServer().equals("postgresql")) {
-            factory = new PostgreDAOFactory(connection);
+            factory = new PgDAOFactory(connection);
         }
         else {
             throw new RuntimeException("Servidor de banco de dados não suportado.");
         }
-        
+
         return factory;
-    }    
-    
+    }
+
     public void beginTransaction() throws SQLException {
         try {
             connection.setAutoCommit(false);
@@ -59,7 +55,7 @@ public abstract class DAOFactory implements AutoCloseable {
             throw new SQLException("Erro ao executar transação.");
         }
     }
-    
+
     public void endTransaction() throws SQLException {
         try {
             connection.setAutoCommit(true);
@@ -86,5 +82,4 @@ public abstract class DAOFactory implements AutoCloseable {
     public void close() throws SQLException {
         closeConnection();
     }
-    
 }

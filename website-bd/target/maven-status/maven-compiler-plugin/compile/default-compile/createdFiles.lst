@@ -1,0 +1,9 @@
+jdbc\ConnectionFactory.class
+controller\NotebookController.class
+dao\PgDAOFactory.class
+dao\DAOFactory.class
+dao\NotebookDAO.class
+dao\DAO.class
+dao\PgNotebookDAO.class
+jdbc\PgConnectionFactory.class
+model\Notebook.class
