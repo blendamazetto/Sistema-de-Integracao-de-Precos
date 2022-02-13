@@ -69,6 +69,6 @@ public class PostgreConnectionFactory extends ConnectionFactory {
 
         return connection;
 
-    }
+    }  
     
 }

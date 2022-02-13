@@ -3,7 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package dao;
+import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -17,6 +21,11 @@ public class PostgreDAOFactory extends DAOFactory {
 
     @Override
     public NotebookDAO getNotebookDAO() {
-        return new PostgreNotebookDAO(this.connection);
+        try {
+            return new NotebookDAO();
+        } catch (IOException | SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(PostgreDAOFactory.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }    
 }

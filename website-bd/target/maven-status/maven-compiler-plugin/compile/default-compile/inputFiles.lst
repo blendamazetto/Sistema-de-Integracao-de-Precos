@@ -1,0 +1,8 @@
+D:\blend\Documents\comp\gitbd\Sistema-de-Integracao-de-Precos\website-bd\src\main\java\controllers\NotebookController.java
+D:\blend\Documents\comp\gitbd\Sistema-de-Integracao-de-Precos\website-bd\src\main\java\model\Notebook.java
+D:\blend\Documents\comp\gitbd\Sistema-de-Integracao-de-Precos\website-bd\src\main\java\connection\factory\ConnectionFactory.java
+D:\blend\Documents\comp\gitbd\Sistema-de-Integracao-de-Precos\website-bd\src\main\java\connection\factory\PostgreConnectionFactory.java
+D:\blend\Documents\comp\gitbd\Sistema-de-Integracao-de-Precos\website-bd\src\main\java\dao\DAO.java
+D:\blend\Documents\comp\gitbd\Sistema-de-Integracao-de-Precos\website-bd\src\main\java\dao\DAOFactory.java
+D:\blend\Documents\comp\gitbd\Sistema-de-Integracao-de-Precos\website-bd\src\main\java\dao\NotebookDAO.java
+D:\blend\Documents\comp\gitbd\Sistema-de-Integracao-de-Precos\website-bd\src\main\java\dao\PostgreDAOFactory.java
