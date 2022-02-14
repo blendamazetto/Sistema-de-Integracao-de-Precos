@@ -3,10 +3,10 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="${pageContext.servletContext.contextPath}/notebooks">Home</a>
+                <a class="nav-link" href="${pageContext.servletContext.contextPath}/produtos">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="${pageContext.servletContext.contextPath}/produtos">Produtos</a>
+                <a class="nav-link" href="${pageContext.servletContext.contextPath}/notebooks">Notebooks</a>
             </li>   
             <li class="nav-item">
                 <a class="nav-link" href="${pageContext.servletContext.contextPath}/update">Update</a>

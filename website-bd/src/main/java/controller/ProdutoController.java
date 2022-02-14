@@ -29,7 +29,7 @@ public class ProdutoController extends HttpServlet {
                     request.getSession().setAttribute("error", ex.getMessage());
                 }
 
-                dispatcher = request.getRequestDispatcher("/view/loja/produtos.jsp");
+                dispatcher = request.getRequestDispatcher("/view/page/produtos.jsp");
                 dispatcher.forward(request, response);
                 break;
             }                         
