@@ -14,7 +14,7 @@ def main():
             result["url"] = url
             results.append(result)
                 
-    with open('resultsMagalu.json', 'w', newline='', encoding='utf-8') as f:
+    with open('resultsMagazineLuiza.json', 'w', newline='', encoding='utf-8') as f:
         f.write(json.dumps(results, indent=4))           
     print("Crawling finalizado em: ", time.time() - start, " segundos")
 

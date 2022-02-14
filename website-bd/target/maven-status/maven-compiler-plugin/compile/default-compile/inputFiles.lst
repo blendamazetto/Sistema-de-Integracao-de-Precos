@@ -1,9 +1,13 @@
+D:\blend\Documents\comp\gitrafa\integracao-de-precos\website-integracao-precos\src\main\java\jdbc\ConnectionFactory.java
+D:\blend\Documents\comp\gitrafa\integracao-de-precos\website-integracao-precos\src\main\java\dao\PgDAOFactory.java
+D:\blend\Documents\comp\gitrafa\integracao-de-precos\website-integracao-precos\src\main\java\dao\PgProdutoDAO.java
+D:\blend\Documents\comp\gitrafa\integracao-de-precos\website-integracao-precos\src\main\java\dao\NotebookDAO.java
+D:\blend\Documents\comp\gitrafa\integracao-de-precos\website-integracao-precos\src\main\java\controller\NotebookController.java
+D:\blend\Documents\comp\gitrafa\integracao-de-precos\website-integracao-precos\src\main\java\model\Produto.java
+D:\blend\Documents\comp\gitrafa\integracao-de-precos\website-integracao-precos\src\main\java\dao\ProdutoDAO.java
 D:\blend\Documents\comp\gitrafa\integracao-de-precos\website-integracao-precos\src\main\java\model\Notebook.java
 D:\blend\Documents\comp\gitrafa\integracao-de-precos\website-integracao-precos\src\main\java\jdbc\PgConnectionFactory.java
 D:\blend\Documents\comp\gitrafa\integracao-de-precos\website-integracao-precos\src\main\java\dao\DAOFactory.java
 D:\blend\Documents\comp\gitrafa\integracao-de-precos\website-integracao-precos\src\main\java\dao\PgNotebookDAO.java
-D:\blend\Documents\comp\gitrafa\integracao-de-precos\website-integracao-precos\src\main\java\jdbc\ConnectionFactory.java
-D:\blend\Documents\comp\gitrafa\integracao-de-precos\website-integracao-precos\src\main\java\dao\PgDAOFactory.java
 D:\blend\Documents\comp\gitrafa\integracao-de-precos\website-integracao-precos\src\main\java\dao\DAO.java
-D:\blend\Documents\comp\gitrafa\integracao-de-precos\website-integracao-precos\src\main\java\dao\NotebookDAO.java
-D:\blend\Documents\comp\gitrafa\integracao-de-precos\website-integracao-precos\src\main\java\controller\NotebookController.java
+D:\blend\Documents\comp\gitrafa\integracao-de-precos\website-integracao-precos\src\main\java\controller\ProdutoController.java
