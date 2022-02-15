@@ -1,7 +1,10 @@
+CREATE SCHEMA lojas_notebook;
+
 CREATE TABLE lojas_notebook.notebook(
     id_notebook SERIAL,
     modelo CHAR(20),
     descricao CHAR(200),
+	marca CHAR(20),
     CONSTRAINT pk_notebook PRIMARY KEY(id_notebook)
 );
 
@@ -13,15 +16,16 @@ CREATE TABLE lojas_notebook.loja(
 
 CREATE TABLE lojas_notebook.loja_vende_notebook(
     id_loja_vende_notebook SERIAL,
-    nome_notebook CHAR(50),
+    id_notebook INT,
     nome_loja CHAR(50),
     classificacao FLOAT,
     preço NUMERIC(6, 2),
     disponibilidade BOOL,
-    notebook_nome CHAR(200),
+    descricao CHAR(200),
     url_produto CHAR(200),
+	data_crawling DATE,
     CONSTRAINT pk_produto PRIMARY KEY(id_loja_vende_notebook),
-    CONSTRAINT fk_notebook FOREIGN KEY(nome_notebook)
+    CONSTRAINT fk_notebook FOREIGN KEY(id_notebook)
         REFERENCES lojas_notebook.notebook(id_notebook),
     CONSTRAINT fk_loja FOREIGN KEY(nome_loja)
         REFERENCES lojas_notebook.loja(nome_loja)
