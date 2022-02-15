@@ -36,10 +36,15 @@ public class PgNotebookDAO implements NotebookDAO {
                                             "INSERT INTO lojas_notebook.loja_vende_notebook(id_notebook, nome_loja, classificacao, preco, disponibilidade, url_produto, data_crawling) " +
                                             "VALUES(?, ?, ?, ?, ?, ?, ?);";
     
-    private static final String QUERY_NOTEBOOK_WHERE =
+    private static final String QUERY_NOTEBOOK_DESCRICAO =
                                             "SELECT * " +
                                             "FROM lojas_notebook.notebook " +
-                                            "WHERE ? = ?;";
+                                            "WHERE descricao = ?;";
+    
+    private static final String QUERY_NOTEBOOK_MODELO =
+                                            "SELECT * " +
+                                            "FROM lojas_notebook.notebook " +
+                                            "WHERE modelo = ?;";
     
     private static final String QUERY_NOTEBOOK_ID =
                                             "SELECT * " +
@@ -104,40 +109,33 @@ public class PgNotebookDAO implements NotebookDAO {
                 }
 
                 int idNotebook = 0;
-                if (!(marca.equals("") && modelo.equals(""))){                    
-                    try (PreparedStatement statement = connection.prepareStatement(QUERY_NOTEBOOK_WHERE)) {
-                        
-                        if(modelo.equals("")){
-                            statement.setString(1, "descricao");
-                            statement.setString(2, descricao);
+                if (!(marca.equals("") && modelo.equals(""))){
+                    String aux;
+                    String atributo;
+                    if(modelo.equals("")){
+                            atributo = descricao;
+                            aux = QUERY_NOTEBOOK_DESCRICAO;
                         }
                         else{
-                            statement.setString(1, "modelo");
-                            statement.setString(2, modelo);
+                            atributo = modelo;
+                            aux = QUERY_NOTEBOOK_MODELO;
                         }
+                    try (PreparedStatement statement = connection.prepareStatement(aux)) {
+                        statement.setString(1, atributo);
+                        
                         try (ResultSet result = statement.executeQuery()) {
-                            if (result.next()) {
-                                idNotebook = result.getInt("id_notebook");
-                            }
-                            else{
+                            if (result.next() == false) {
                                 try (PreparedStatement statement2 = connection.prepareStatement(ADD_QUERY_NOTEBOOK)) {
                                     statement2.setString(1, modelo);
                                     statement2.setString(2, descricao);
-                                    statement2.setString(3, marca); 
-
+                                    statement2.setString(3, marca);
+                                    
                                     statement2.executeUpdate();
                                     
-                                    try (ResultSet generatedKeys = statement2.getGeneratedKeys()) {
-                                        if (generatedKeys.next()) {
-                                            idNotebook = generatedKeys.getInt(1);
-                                        }
-                                        else {
-                                            throw new SQLException("Falha ao adicionar notebook, id não encontrado.");
-                                        }
-                                    }
                                 } catch (SQLException ex) {
                                     Logger.getLogger(PgNotebookDAO.class.getName()).log(Level.SEVERE, "DAO", ex);
                                 }
+                            } else {
                             }
                         }
                     }                   
@@ -149,30 +147,30 @@ public class PgNotebookDAO implements NotebookDAO {
                             }
                         }                          
                             
-                    try (PreparedStatement statement3 = connection.prepareStatement(ADD_QUERY_LOJA_VENDE_NOTEBOOK)) {
+                        try (PreparedStatement statement3 = connection.prepareStatement(ADD_QUERY_LOJA_VENDE_NOTEBOOK)) {
 
-                        statement3.setInt(1, idNotebook);                       
-                        statement3.setString(2, nome_loja[i]);
-                        statement3.setString(3, rating);
-                        statement3.setDouble(4, preco);
-                        if(preco == 0){
-                            statement3.setBoolean(5, false);
-                        }
-                        else{
-                            statement3.setBoolean(5, true);
-                        }
-                        statement3.setString(6, url);
-                        statement3.setDate(7, dt);
+                            statement3.setInt(1, idNotebook);                       
+                            statement3.setString(2, nome_loja[i]);
+                            statement3.setString(3, rating);
+                            statement3.setDouble(4, preco);
+                            if(preco == 0){
+                                statement3.setBoolean(5, false);
+                            }
+                            else{
+                                statement3.setBoolean(5, true);
+                            }
+                            statement3.setString(6, url);
+                            statement3.setDate(7, dt);
 
-                        statement3.executeUpdate();
-                    }   catch (SQLException ex) {
-                        Logger.getLogger(PgNotebookDAO.class.getName()).log(Level.SEVERE, "DAO", ex);
+                            statement3.executeUpdate();
+                        }   catch (SQLException ex) {
+                            Logger.getLogger(PgNotebookDAO.class.getName()).log(Level.SEVERE, "DAO", ex);
+                        }
                     }
                 }
             }
         }
     }
-}
     
     @Override
     public void create(Notebook t) throws SQLException {

@@ -54,11 +54,11 @@ public class NotebookController extends HttpServlet {
                 try (DAOFactory daoFactory = DAOFactory.getInstance()) {
                     dao_notebook = daoFactory.getNotebookDAO();
                     dao_notebook.update();
+                    List<Notebook> lista_notebook = dao_notebook.all();
+                    request.setAttribute("lista_notebook", lista_notebook);
                     
                 } catch(ClassNotFoundException | IOException | SQLException ex) {
                     request.getSession().setAttribute("error", ex.getMessage());
-                    dispatcher = request.getRequestDispatcher("/view/page/produtos.jsp");
-                    dispatcher.forward(request, response);
                 } catch (ParseException ex) {
                 Logger.getLogger(NotebookController.class.getName()).log(Level.SEVERE, null, ex);
                 }
