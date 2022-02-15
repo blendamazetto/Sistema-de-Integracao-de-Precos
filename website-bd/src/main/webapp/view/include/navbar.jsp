@@ -3,7 +3,7 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="${pageContext.servletContext.contextPath}/produtos">Home</a>
+                <a class="nav-link" href="${pageContext.servletContext.contextPath}/home">Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="${pageContext.servletContext.contextPath}/notebooks">Notebooks</a>

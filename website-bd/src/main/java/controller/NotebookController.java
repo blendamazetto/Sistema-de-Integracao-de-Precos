@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.parser.ParseException;
 
-@WebServlet(name = "NotebookController", urlPatterns = {"","/notebooks", "/update"})
+@WebServlet(name = "NotebookController", urlPatterns = {"/notebooks", "/update"})
 public class NotebookController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, FileNotFoundException {
@@ -21,20 +21,6 @@ public class NotebookController extends HttpServlet {
         RequestDispatcher dispatcher;
 
         switch (request.getServletPath()) {
-            case "": {
-                try (DAOFactory daoFactory = DAOFactory.getInstance()) {
-                    dao_notebook = daoFactory.getNotebookDAO();
-
-                    List<Notebook> lista_notebook = dao_notebook.all();
-                    request.setAttribute("lista_notebook", lista_notebook);
-                } catch(ClassNotFoundException | IOException | SQLException ex) {
-                    request.getSession().setAttribute("error", ex.getMessage());
-                }
-
-                dispatcher = request.getRequestDispatcher("/view/page/index.jsp");
-                dispatcher.forward(request, response);
-                break;
-            }
             
             case "/notebooks": {
                 try (DAOFactory daoFactory = DAOFactory.getInstance()) {
@@ -46,7 +32,7 @@ public class NotebookController extends HttpServlet {
                     request.getSession().setAttribute("error", ex.getMessage());
                 }
 
-                dispatcher = request.getRequestDispatcher("/view/page/index.jsp");
+                dispatcher = request.getRequestDispatcher("/view/page/notebooks.jsp");
                 dispatcher.forward(request, response);
                 break;
             }
@@ -62,7 +48,7 @@ public class NotebookController extends HttpServlet {
                 } catch (ParseException ex) {
                 Logger.getLogger(NotebookController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-               dispatcher = request.getRequestDispatcher("/view/page/index.jsp");
+               dispatcher = request.getRequestDispatcher("/view/page/notebooks.jsp");
                dispatcher.forward(request, response);
                 
                 break;

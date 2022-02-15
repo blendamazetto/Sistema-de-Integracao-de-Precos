@@ -11,29 +11,33 @@
     <%@include file="/view/include/navbar.jsp" %>
     <br>
     <div class="container">
-        <table class="table" align="center" border="0" cellpadding="20">
+        <table class="table" align="center" border="0" cellpadding="0">
             <thead class="#87CEFA" align="center">
                 <tr>
-                    <th scope="col" align="center">ID</th>
-                    <th scope="col" align="center">MODELO</th>
-                    <th scope="col" align="left">DESCRIÇÃO</th>
-                    <th scope="col" align="center">MARCA</th>
+                    <th scope="col" align="left">CLASSIFICAÇÃO</th>
+                    <th scope="col" align="center">DESCRIÇÃO</th>
+                    <th scope="col" align="center">VALOR</th>
+                    <th scope="col" align="center">LOJA</th>
+                    <th scope="col" align="center">DATA</th>
                 </tr>
             </thead>
             <tbody align="center">
-                <c:forEach var="notebook" items="${requestScope.lista_notebook}">
+                <c:forEach var="produto" items="${requestScope.lista_produtos}">
                     <tr>
                         <td align="center">
-                            <span><c:out value="${notebook.id_notebook}"/></span>
-                        </td>
-                        <td align="center">
-                            <span><c:out value="${notebook.modelo}"/></span>
-                        </td>
+                            <span><c:out value="${produto.classificacao}"/></span>
+                        </td>                        
                         <td align="left">
-                            <span><c:out value="${notebook.descricao}"/></span>
+                            <span><c:out value="${produto.descricao}"/></span>
                         </td>
                         <td align="center">
-                            <span><c:out value="${notebook.marca}"/></span>
+                            <span><c:out value="${produto.preco}"/></span>
+                        </td>
+                        <td align="center">
+                            <span><c:out value="${produto.nomeLoja}"/></span>
+                        </td>                     
+                        <td align="center">
+                            <span><c:out value="${produto.dataCrawling}"/></span>
                         </td>
                     </tr>
                 </c:forEach>
