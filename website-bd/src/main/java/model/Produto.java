@@ -4,7 +4,7 @@ public class Produto {
     
     private Double preco;
     
-    private String classificacao;
+    private Double classificacao;
     
     private String nomeLoja;
     
@@ -24,10 +24,10 @@ public class Produto {
         return descricao;
     }
 
-    public String getClassificacao() {
+    public Double getClassificacao() {
         return classificacao;
     }
-
+    
     public String getNomeLoja() {
         return nomeLoja;
     }
@@ -36,7 +36,7 @@ public class Produto {
         return dataCrawling;
     }
 
-    public void setClassificacao(String classificação) {
+    public void setClassificacao(Double classificação) {
         this.classificacao = classificação;
     }
 
@@ -50,6 +50,20 @@ public class Produto {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+    
+    public String getPrecoAsString(){
+        if(preco == 0.0){
+            return "";
+        }
+        return String.format("R$%.2f", preco);
+    }
+    
+    public String getClassificacaoAsString(){
+        if(classificacao == 0.0){
+            return "";
+        }
+        return String.format("%.1f de 5 estrelas", classificacao);
     }
     
 }

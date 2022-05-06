@@ -7,6 +7,7 @@ import model.Notebook;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Types;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,6 +51,13 @@ public class PgNotebookDAO implements NotebookDAO {
                                             "SELECT * " +
                                             "FROM lojas_notebook.notebook " +
                                             "WHERE descricao = ?;";
+    
+    private static final String QUERY_PRODUTO =
+                                            "SELECT * " +
+                                            "FROM lojas_notebook.loja_vende_notebook " +
+                                            "WHERE id_notebook = ?" +
+                                            "AND nome_loja = ?" +
+                                            "AND data_crawling = ?;";
 
     @Override
     public List<Notebook> all() throws SQLException {
@@ -79,20 +87,24 @@ public class PgNotebookDAO implements NotebookDAO {
     public void update() throws SQLException, FileNotFoundException, IOException, ParseException {
         
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        String dataCrawling = formatter.format(new Date());
-        
-        java.util.Date d = new java.util.Date();
-        java.sql.Date dt = new java.sql.Date (d.getTime()); 
+        java.sql.Date dt; 
         
         String[] nome_loja = {"Amazon", "Kabum", "MagazineLuiza"};
-        String[] crawling_path = {"D:\\blend\\Documents\\comp\\gitbd\\Sistema-de-Integracao-de-Precos\\crawlings\\Amazon\\resultsAmazon.json","D:\\blend\\Documents\\comp\\gitbd\\Sistema-de-Integracao-de-Precos\\crawlings\\Kabum\\resultsKabum.json","D:\\blend\\Documents\\comp\\gitbd\\Sistema-de-Integracao-de-Precos\\crawlings\\MagazineLuiza\\resultsMagazineLuiza.json"};
+        String[] crawling_path = {"json/resultsAmazon.json","json/resultsKabum.json","json/resultsMagazineLuiza.json"};
         
         for(int i = 0; i < 3; i++){
             JSONParser parser = new JSONParser();
-            JSONArray jsonArray = (JSONArray) parser.parse(new FileReader(crawling_path[i]));
-
-            for (Object o : jsonArray) {
-                JSONObject notebook = (JSONObject) o;
+            JSONArray jsonArray = (JSONArray) parser.parse(new FileReader(this.getClass().getClassLoader().getResource(crawling_path[i]).getPath()));
+            JSONObject auxData = (JSONObject) jsonArray.get(0);
+            String dataSt = (String) auxData.get("data");
+            try {
+                dt = new java.sql.Date(formatter.parse(dataSt).getTime());
+            } catch (java.text.ParseException ex) {
+                Logger.getLogger(PgNotebookDAO.class.getName()).log(Level.SEVERE, null, ex);
+                return;
+            }
+            for (int j = 1; j < jsonArray.size(); j++) {
+                JSONObject notebook = (JSONObject) jsonArray.get(j);
                 String descricao = (String) notebook.get("descricao");
                 String precoStr = (String) notebook.get("preco");
                 String modelo = (String) notebook.get("modelo");
@@ -108,7 +120,6 @@ public class PgNotebookDAO implements NotebookDAO {
                     preco = 0;
                 }
 
-                int idNotebook = 0;
                 if (!(marca.equals("") && modelo.equals(""))){
                     String aux;
                     String atributo;
@@ -135,7 +146,6 @@ public class PgNotebookDAO implements NotebookDAO {
                                 } catch (SQLException ex) {
                                     Logger.getLogger(PgNotebookDAO.class.getName()).log(Level.SEVERE, "DAO", ex);
                                 }
-                            } else {
                             }
                         }
                     }                   
@@ -143,29 +153,50 @@ public class PgNotebookDAO implements NotebookDAO {
                         statement.setString(1, descricao);
                         try (ResultSet result = statement.executeQuery()) {
                             if (result.next()) {
-                                idNotebook = result.getInt("id_notebook");
+                                int idNotebook = result.getInt("id_notebook");
+                                try (PreparedStatement statement3 = connection.prepareStatement(QUERY_PRODUTO)) {
+                                    statement3.setInt(1, idNotebook);
+                                    statement3.setString(2, nome_loja[i]);
+                                    statement3.setDate(3, dt);
+                                    try (ResultSet result2 = statement3.executeQuery()) {
+                                        if (result2.next() == false) {
+                                            try (PreparedStatement statement4 = connection.prepareStatement(ADD_QUERY_LOJA_VENDE_NOTEBOOK)) {
+                                    
+                                                statement4.setInt(1, idNotebook);                       
+                                                statement4.setString(2, nome_loja[i]);
+                                             
+                                                if(preco == 0){
+                                                    statement4.setNull(4, Types.NUMERIC);
+                                                    statement4.setBoolean(5, false);
+                                                }
+                                                else{
+                                                    statement4.setBoolean(5, true);
+                                                    statement4.setDouble(4, preco);
+                                                }
+                                                if(rating.equals("")){
+                                                    statement4.setNull(3, Types.NUMERIC);
+                                                }
+                                                else{
+                                                    Double auxRating = 0.0;
+                                                    auxRating += rating.charAt(0) - 48;
+                                                    if(rating.length() > 2){
+                                                        auxRating += (rating.charAt(2) - 48)/10;
+                                                    }
+                                                    
+                                                    statement4.setDouble(3, auxRating);
+                                                }
+                                                statement4.setString(6, url);
+                                                statement4.setDate(7, dt);
+
+                                                statement4.executeUpdate();
+                                            }   catch (SQLException ex) {
+                                                Logger.getLogger(PgNotebookDAO.class.getName()).log(Level.SEVERE, "DAO", ex);
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }                          
-                            
-                        try (PreparedStatement statement3 = connection.prepareStatement(ADD_QUERY_LOJA_VENDE_NOTEBOOK)) {
-
-                            statement3.setInt(1, idNotebook);                       
-                            statement3.setString(2, nome_loja[i]);
-                            statement3.setString(3, rating);
-                            statement3.setDouble(4, preco);
-                            if(preco == 0){
-                                statement3.setBoolean(5, false);
-                            }
-                            else{
-                                statement3.setBoolean(5, true);
-                            }
-                            statement3.setString(6, url);
-                            statement3.setDate(7, dt);
-
-                            statement3.executeUpdate();
-                        }   catch (SQLException ex) {
-                            Logger.getLogger(PgNotebookDAO.class.getName()).log(Level.SEVERE, "DAO", ex);
-                        }
                     }
                 }
             }

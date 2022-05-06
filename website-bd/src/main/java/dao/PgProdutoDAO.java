@@ -33,7 +33,7 @@ public class PgProdutoDAO implements ProdutoDAO {
             while (result.next()) {
                 Produto produto = new Produto();
                 produto.setDescricao(result.getString("descricao"));
-                produto.setClassificacao(result.getString("classificacao"));
+                produto.setClassificacao(result.getDouble("classificacao"));
                 produto.setNomeLoja(result.getString("nome_loja"));
                 produto.setPreco(result.getDouble("preco"));
                 produto.setDataCrawling(formatter.format(result.getDate("data_crawling")));

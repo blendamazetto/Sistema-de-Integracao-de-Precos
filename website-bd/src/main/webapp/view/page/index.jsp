@@ -25,13 +25,13 @@
                 <c:forEach var="produto" items="${requestScope.lista_produtos}">
                     <tr>
                         <td align="center">
-                            <span><c:out value="${produto.classificacao}"/></span>
+                            <span><c:out value="${produto.getClassificacaoAsString()}"/></span>
                         </td>                        
                         <td align="left">
                             <span><c:out value="${produto.descricao}"/></span>
                         </td>
                         <td align="center">
-                            <span><c:out value="${produto.preco}"/></span>
+                            <span><c:out value="${produto.getPrecoAsString()}"/></span>
                         </td>
                         <td align="center">
                             <span><c:out value="${produto.nomeLoja}"/></span>

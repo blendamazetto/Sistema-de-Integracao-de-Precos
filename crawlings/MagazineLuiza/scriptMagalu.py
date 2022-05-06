@@ -1,5 +1,6 @@
 import json
 import time
+from datetime import date
 from crawlingMagalu import MagaluCrawling    
 
 def main():
@@ -7,6 +8,9 @@ def main():
     crawling = MagaluCrawling(True)
     urls = crawling.extract_urls()
     results = []
+    today = date.today()
+    dateAux = today.strftime("%Y-%m-%d")
+    results.append({"data" : dateAux})
 
     for url in urls:
         result = crawling.extract_page_info(url)

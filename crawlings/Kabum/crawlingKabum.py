@@ -64,7 +64,7 @@ class KabumCrawling:
             print("pagina", page)
             self.driver.get(self.baseURL.format(page))
             soup = BeautifulSoup(self.driver.page_source, 'html.parser')
-            aux = soup.find('div',{'class': 'sc-dUbtfd bvIgDc'})
+            aux = soup.find('div',{'class': 'sc-iqGgem ggYlfb'})
             for item in aux.main.find_all('a'):
                 result.append('https://www.kabum.com.br' + item.get('href'))
 
