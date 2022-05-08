@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.Types;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.logging.Level;
@@ -58,6 +57,18 @@ public class PgNotebookDAO implements NotebookDAO {
                                             "WHERE id_notebook = ?" +
                                             "AND nome_loja = ?" +
                                             "AND data_crawling = ?;";
+    
+    private String descricao;
+    private String marca;
+    private String modelo;
+
+    @Override
+    public void setArguments(String[] args){
+        this.descricao = args[0];
+        this.marca = args[1];
+        this.modelo = args[2];
+    }
+
 
     @Override
     public List<Notebook> all() throws SQLException {

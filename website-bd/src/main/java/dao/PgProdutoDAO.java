@@ -23,7 +23,11 @@ public class PgProdutoDAO implements ProdutoDAO {
                                             "FROM lojas_notebook.loja_vende_notebook "+
                                             "INNER JOIN lojas_notebook.notebook "+
                                             "ON lojas_notebook.loja_vende_notebook.id_notebook = lojas_notebook.notebook.id_notebook;";   
-
+    
+    @Override
+    public void setArguments(String[] args){
+    }
+    
     @Override
     public List<Produto> all() throws SQLException {
         List<Produto> lista_produtos = new ArrayList<>();

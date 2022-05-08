@@ -19,13 +19,15 @@ public class NotebookController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, FileNotFoundException {
         DAO<Notebook> dao_notebook;
         RequestDispatcher dispatcher;
+        HttpSession session = request.getSession();
 
         switch (request.getServletPath()) {
             
-            case "/notebooks": {
+            case "/notebooks": 
                 try (DAOFactory daoFactory = DAOFactory.getInstance()) {
                     dao_notebook = daoFactory.getNotebookDAO();
-
+                    String[] args = {(String) session.getAttribute("descricao"), (String) session.getAttribute("marca"), (String) session.getAttribute("modelo")};
+                    dao_notebook.setArguments(args);
                     List<Notebook> lista_notebook = dao_notebook.all();
                     request.setAttribute("lista_notebook", lista_notebook);
                 } catch(ClassNotFoundException | IOException | SQLException ex) {
@@ -35,8 +37,8 @@ public class NotebookController extends HttpServlet {
                 dispatcher = request.getRequestDispatcher("/view/page/notebooks.jsp");
                 dispatcher.forward(request, response);
                 break;
-            }
-            case "/update": {                          
+            
+            case "/update":                          
                 try (DAOFactory daoFactory = DAOFactory.getInstance()) {
                     dao_notebook = daoFactory.getNotebookDAO();
                     dao_notebook.update();
@@ -51,13 +53,29 @@ public class NotebookController extends HttpServlet {
                dispatcher = request.getRequestDispatcher("/view/page/notebooks.jsp");
                dispatcher.forward(request, response);
                 
-                break;
-            }      
+               break;
+            
         }
     }    
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
 
+        switch (request.getServletPath()){
+            case "/RequisicaoPesquisa":
+
+                String descricao = request.getParameter("descricao");
+                String marca = request.getParameter("marca");
+                String modelo = request.getParameter("modelo");
+
+                System.out.println("Valores Lidos:" + descricao + marca + modelo);
+
+                session.setAttribute("descricao", descricao);
+                session.setAttribute("marca", marca);
+                session.setAttribute("modelo", modelo);
+                response.sendRedirect(request.getContextPath() + "/ResultadoPesquisa");
+                break;
+        }
     }
 }

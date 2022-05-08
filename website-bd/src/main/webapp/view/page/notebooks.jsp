@@ -11,6 +11,40 @@
     <%@include file="/view/include/navbar.jsp" %>
     <br>
     <div class="container">
+        <div class="card mt-5 mb-5">
+            <div class="card-body">
+                <h3 class="card-title">Pesquisa </h3>
+                <br>
+                <form
+                        class="form"
+                        action="${pageContext.servletContext.contextPath}/RequisicaoPesquisa"
+                        method="POST"
+                >
+                    <div class="form-group">
+                        <label for="inputDescricao">Descrição do notebook</label>
+                        <input name="descricao" type="text" class="form-control" id="inputDescricao" placeholder="Insira a descrição do notebook">
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <label for="inputMarca">Nome da marca</label>
+                            <input name="marca" type="text" class="form-control" id="inputMarca" placeholder="Insira o nome da marca">
+
+                        </div>
+                        <div class="col">
+                            <label for="inputModelo">Código do modelo</label>
+                            <input name="modelo" type="text" class="form-control" id="inputModelo" placeholder="Insira o código do Modelo">
+
+                        </div>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary">Pesquisar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <div class="container">
         <table class="table" align="center" border="0" cellpadding="20">
             <thead class="#87CEFA" align="center">
                 <tr>

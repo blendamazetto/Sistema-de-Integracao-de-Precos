@@ -12,5 +12,6 @@ public interface DAO<T> {
     public void update() throws SQLException, FileNotFoundException, IOException, ParseException;
     public void delete(Integer id) throws SQLException;
     public List<T> all() throws SQLException;
+    public void setArguments(String[] args);
 
 }
