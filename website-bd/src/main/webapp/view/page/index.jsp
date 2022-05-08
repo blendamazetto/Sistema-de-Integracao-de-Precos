@@ -39,6 +39,16 @@
                         <td align="center">
                             <span><c:out value="${produto.dataCrawling}"/></span>
                         </td>
+                        <td align="center">                          
+                            <form action="/graficos" method="post">
+                                <input type="hidden" name="classificacao" value="${produto.getClassificacaoAsString()}">
+                                <input type="hidden" name="descricao" value="${produto.descricao}">
+                                <input type="hidden" name="valor" value="${produto.getPrecoAsString()}">
+                                <input type="hidden" name="loja" value="${produto.nomeLoja}">
+                                <input type="hidden" name="data" value="${produto.dataCrawling}">
+                                <input type="submit" value="Submit">
+                            </form>
+                        </td>
                     </tr>
                 </c:forEach>
             </tbody>

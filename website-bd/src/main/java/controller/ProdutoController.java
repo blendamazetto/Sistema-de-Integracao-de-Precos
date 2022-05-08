@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.List;
 import model.Produto;
 
-@WebServlet(name = "ProdutoController", urlPatterns = {"", "/home"})
+@WebServlet(name = "ProdutoController", urlPatterns = {"", "/home", "/graficos"})
 public class ProdutoController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, FileNotFoundException {
@@ -54,5 +54,29 @@ public class ProdutoController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        HttpSession session = request.getSession();
+        RequestDispatcher dispatcher;
+
+        switch (request.getServletPath()){
+            case "/graficos":
+
+                String classificacao = request.getParameter("classificacao");
+                String descricao = request.getParameter("descricao");
+                String valor = request.getParameter("valor");
+                String loja = request.getParameter("loja");
+                String data = request.getParameter("data");
+
+                System.out.println("Valores Lidos:" + classificacao + descricao + valor + loja + data);
+
+                session.setAttribute("classificacao", classificacao);
+                session.setAttribute("descricao", descricao);
+                session.setAttribute("valor", valor);
+                session.setAttribute("loja", loja);
+                session.setAttribute("data", data);
+                
+                dispatcher = request.getRequestDispatcher("/view/page/graficos.jsp");
+                dispatcher.forward(request, response);
+                break;
+        }
     }
 }
