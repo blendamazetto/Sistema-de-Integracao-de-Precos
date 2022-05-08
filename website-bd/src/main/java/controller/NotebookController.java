@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.parser.ParseException;
 
-@WebServlet(name = "NotebookController", urlPatterns = {"/notebooks", "/update"})
+@WebServlet(name = "NotebookController", urlPatterns = {"/notebooks", "/update", "/RequisicaoPesquisa"})
 public class NotebookController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, FileNotFoundException {
@@ -74,7 +74,7 @@ public class NotebookController extends HttpServlet {
                 session.setAttribute("descricao", descricao);
                 session.setAttribute("marca", marca);
                 session.setAttribute("modelo", modelo);
-                response.sendRedirect(request.getContextPath() + "/ResultadoPesquisa");
+                response.sendRedirect(request.getContextPath() + "/notebooks");
                 break;
         }
     }

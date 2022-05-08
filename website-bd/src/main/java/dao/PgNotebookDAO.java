@@ -26,7 +26,16 @@ public class PgNotebookDAO implements NotebookDAO {
 
     private static final String ALL_QUERY =
                                             "SELECT * " +
-                                            "FROM lojas_notebook.notebook;";
+                                            "FROM lojas_notebook.notebook";
+    
+    private static final String DESC_FILTER =
+                                            " WHERE descricao LIKE ?";
+    
+    private static final String MARCA_FILTER =
+                                            " WHERE marca LIKE ?";
+    
+    private static final String MODELO_FILTER =
+                                            " WHERE modelo LIKE ?";
     
     private static final String ADD_QUERY_NOTEBOOK =
                                             "INSERT INTO lojas_notebook.notebook(modelo, descricao, marca) " +
@@ -46,11 +55,6 @@ public class PgNotebookDAO implements NotebookDAO {
                                             "FROM lojas_notebook.notebook " +
                                             "WHERE modelo = ?;";
     
-    private static final String QUERY_NOTEBOOK_ID =
-                                            "SELECT * " +
-                                            "FROM lojas_notebook.notebook " +
-                                            "WHERE descricao = ?;";
-    
     private static final String QUERY_PRODUTO =
                                             "SELECT * " +
                                             "FROM lojas_notebook.loja_vende_notebook " +
@@ -58,38 +62,64 @@ public class PgNotebookDAO implements NotebookDAO {
                                             "AND nome_loja = ?" +
                                             "AND data_crawling = ?;";
     
-    private String descricao;
-    private String marca;
-    private String modelo;
+    private String descricaoNotebook;
+    private String marcaNotebook;
+    private String modeloNotebook;
 
     @Override
     public void setArguments(String[] args){
-        this.descricao = args[0];
-        this.marca = args[1];
-        this.modelo = args[2];
+        this.descricaoNotebook = args[0];
+        this.marcaNotebook = args[1];
+        this.modeloNotebook = args[2];
     }
 
 
     @Override
     public List<Notebook> all() throws SQLException {
         List<Notebook> lista_notebooks = new ArrayList<>();
-
-        try (PreparedStatement statement = connection.prepareStatement(ALL_QUERY);
-             ResultSet result = statement.executeQuery()) {
-            while (result.next()) {
-                Notebook notebook = new Notebook();
-                
-                notebook.setId_notebook(result.getInt("id_notebook"));
-                notebook.setModelo(result.getString("modelo"));
-                notebook.setDescricao(result.getString("descricao"));
-                 notebook.setMarca(result.getString("marca"));
-
-                lista_notebooks.add(notebook);
+        String aux = ALL_QUERY;
+        if (descricaoNotebook != null && !descricaoNotebook.isEmpty()){
+            aux = aux + DESC_FILTER;
+        }
+        if (marcaNotebook != null && !marcaNotebook.isEmpty()){
+            aux = aux + MARCA_FILTER;
+        }
+        if (modeloNotebook != null && !modeloNotebook.isEmpty()){
+            aux = aux + MODELO_FILTER;
+        }
+        
+        aux = aux + ";";
+        
+        try (PreparedStatement statement = connection.prepareStatement(aux)){
+            int i = 1;
+            if (descricaoNotebook != null && !descricaoNotebook.isEmpty()){
+                statement.setString(i, "%" + descricaoNotebook + "%");
+                i++;
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(PgNotebookDAO.class.getName()).log(Level.SEVERE, "DAO", ex);
+            if (marcaNotebook != null && !marcaNotebook.isEmpty()){
+                statement.setString(i, "%" + marcaNotebook + "%");
+                i++;
+                
+            }
+            if (modeloNotebook != null && !modeloNotebook.isEmpty()){
+                statement.setString(i, "%" + modeloNotebook + "%");
+            }
+            try (ResultSet result = statement.executeQuery()) {
+                while (result.next()) {
+                    Notebook notebook = new Notebook();
 
-            throw new SQLException("Erro ao listar notebooks.");
+                    notebook.setId_notebook(result.getInt("id_notebook"));
+                    notebook.setModelo(result.getString("modelo"));
+                    notebook.setDescricao(result.getString("descricao"));
+                     notebook.setMarca(result.getString("marca"));
+
+                    lista_notebooks.add(notebook);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PgNotebookDAO.class.getName()).log(Level.SEVERE, "DAO", ex);
+
+                throw new SQLException("Erro ao listar notebooks.");
+            }
         }
         return lista_notebooks;
     }
@@ -119,7 +149,9 @@ public class PgNotebookDAO implements NotebookDAO {
                 String descricao = (String) notebook.get("descricao");
                 String precoStr = (String) notebook.get("preco");
                 String modelo = (String) notebook.get("modelo");
+                modelo = modelo.replaceAll("\\s","");
                 String marca = (String) notebook.get("marca");
+                marca = marca.replaceAll("\\s","");
                 String rating = (String) notebook.get("rating");
                 String url = (String) notebook.get("url");
                 
@@ -131,17 +163,17 @@ public class PgNotebookDAO implements NotebookDAO {
                     preco = 0;
                 }
 
-                if (!(marca.equals("") && modelo.equals(""))){
+                if (!(marca.isEmpty() && modelo.isEmpty())){
                     String aux;
                     String atributo;
-                    if(modelo.equals("")){
-                            atributo = descricao;
-                            aux = QUERY_NOTEBOOK_DESCRICAO;
-                        }
-                        else{
-                            atributo = modelo;
-                            aux = QUERY_NOTEBOOK_MODELO;
-                        }
+                    if(!modelo.isEmpty()){
+                        atributo = modelo;
+                        aux = QUERY_NOTEBOOK_MODELO;
+                    }
+                    else{
+                        atributo = descricao;
+                        aux = QUERY_NOTEBOOK_DESCRICAO;
+                    }
                     try (PreparedStatement statement = connection.prepareStatement(aux)) {
                         statement.setString(1, atributo);
                         
@@ -160,7 +192,7 @@ public class PgNotebookDAO implements NotebookDAO {
                             }
                         }
                     }                   
-                    try (PreparedStatement statement = connection.prepareStatement(QUERY_NOTEBOOK_ID)) {
+                    try (PreparedStatement statement = connection.prepareStatement(QUERY_NOTEBOOK_DESCRICAO)) {
                         statement.setString(1, descricao);
                         try (ResultSet result = statement.executeQuery()) {
                             if (result.next()) {
