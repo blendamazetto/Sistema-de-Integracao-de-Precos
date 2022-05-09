@@ -29,13 +29,13 @@ public class PgNotebookDAO implements NotebookDAO {
                                             "FROM lojas_notebook.notebook";
     
     private static final String DESC_FILTER =
-                                            " WHERE descricao LIKE ?";
+                                            " descricao LIKE ?";
     
     private static final String MARCA_FILTER =
-                                            " WHERE marca LIKE ?";
+                                            " marca LIKE ?";
     
     private static final String MODELO_FILTER =
-                                            " WHERE modelo LIKE ?";
+                                            " modelo LIKE ?";
     
     private static final String ADD_QUERY_NOTEBOOK =
                                             "INSERT INTO lojas_notebook.notebook(modelo, descricao, marca) " +
@@ -78,13 +78,29 @@ public class PgNotebookDAO implements NotebookDAO {
     public List<Notebook> all() throws SQLException {
         List<Notebook> lista_notebooks = new ArrayList<>();
         String aux = ALL_QUERY;
+        boolean flag = false;
         if (descricaoNotebook != null && !descricaoNotebook.isEmpty()){
-            aux = aux + DESC_FILTER;
+            aux = aux + " WHERE" + DESC_FILTER;
+            flag = true;
         }
         if (marcaNotebook != null && !marcaNotebook.isEmpty()){
+            if (flag){
+                aux = aux + " AND";
+            }
+            else{
+                flag = true;
+                aux = aux + " WHERE";
+            }
             aux = aux + MARCA_FILTER;
         }
         if (modeloNotebook != null && !modeloNotebook.isEmpty()){
+            if (flag){
+                aux = aux + " AND";
+            }
+            else{
+                flag = true;
+                aux = aux + " WHERE";
+            }
             aux = aux + MODELO_FILTER;
         }
         

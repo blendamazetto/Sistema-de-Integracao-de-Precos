@@ -2,6 +2,8 @@ package model;
 
 public class Produto {
     
+    private String urlProduto;
+    
     private Double preco;
     
     private Double classificacao;
@@ -35,6 +37,10 @@ public class Produto {
     public String getDataCrawling() {
         return dataCrawling;
     }
+    
+    public String getUrlProduto() {
+        return urlProduto;
+    }
 
     public void setClassificacao(Double classificação) {
         this.classificacao = classificação;
@@ -50,6 +56,10 @@ public class Produto {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+    
+    public void setUrlProduto(String url) {
+        this.urlProduto = url;
     }
     
     public String getPrecoAsString(){

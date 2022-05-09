@@ -23,6 +23,7 @@
                     <th scope="col" align="center">VALOR</th>
                     <th scope="col" align="center">LOJA</th>
                     <th scope="col" align="center">DATA</th>
+                    <th scope="col" align="center">URL</th>
                 </tr>
             </thead>
             <tbody align="center">
@@ -41,6 +42,9 @@
                         </td>                     
                         <td align="center">
                             <%=request.getParameter("data")%>
+                        </td>
+                        <td align="center">
+                            <%=request.getParameter("url")%>
                         </td>
                     </tr>
             </tbody>

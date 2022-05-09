@@ -17,7 +17,7 @@
                 <br>
                 <form
                         class="form"
-                        action="${pageContext.servletContext.contextPath}/RequisicaoPesquisa"
+                        action="${pageContext.servletContext.contextPath}/PesquisaNotebook"
                         method="POST"
                 >
                     <div class="form-group">

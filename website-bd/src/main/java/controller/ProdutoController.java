@@ -10,26 +10,18 @@ import java.sql.SQLException;
 import java.util.List;
 import model.Produto;
 
-@WebServlet(name = "ProdutoController", urlPatterns = {"", "/home", "/graficos"})
+@WebServlet(name = "ProdutoController", urlPatterns = {"", "/home", "/graficos", "/PesquisaProduto"})
 public class ProdutoController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, FileNotFoundException {
 
         DAO<Produto> dao_produto;
         RequestDispatcher dispatcher;
+        HttpSession session = request.getSession();
 
         switch (request.getServletPath()) { 
             case "": {
-                try (DAOFactory daoFactory = DAOFactory.getInstance()) {
-                    dao_produto = daoFactory.getProdutoDAO();
-
-                    List<Produto> lista_produtos = dao_produto.all();
-                    request.setAttribute("lista_produtos", lista_produtos);
-                } catch(ClassNotFoundException | IOException | SQLException ex) {
-                    request.getSession().setAttribute("error", ex.getMessage());
-                }
-
-                dispatcher = request.getRequestDispatcher("/view/page/index.jsp");
+                dispatcher = request.getRequestDispatcher(request.getContextPath() + "/home");
                 dispatcher.forward(request, response);
                 break;
             }
@@ -37,7 +29,8 @@ public class ProdutoController extends HttpServlet {
              case "/home": {
                 try (DAOFactory daoFactory = DAOFactory.getInstance()) {
                     dao_produto = daoFactory.getProdutoDAO();
-
+                    
+                    dao_produto.setArguments((String[]) session.getAttribute("listaArgumentos"));
                     List<Produto> lista_produtos = dao_produto.all();
                     request.setAttribute("lista_produtos", lista_produtos);
                 } catch(ClassNotFoundException | IOException | SQLException ex) {
@@ -65,6 +58,7 @@ public class ProdutoController extends HttpServlet {
                 String valor = request.getParameter("valor");
                 String loja = request.getParameter("loja");
                 String data = request.getParameter("data");
+                String url = request.getParameter("url");
 
                 System.out.println("Valores Lidos:" + classificacao + descricao + valor + loja + data);
 
@@ -73,9 +67,25 @@ public class ProdutoController extends HttpServlet {
                 session.setAttribute("valor", valor);
                 session.setAttribute("loja", loja);
                 session.setAttribute("data", data);
+                session.setAttribute("url", url);
                 
                 dispatcher = request.getRequestDispatcher("/view/page/graficos.jsp");
                 dispatcher.forward(request, response);
+                break;
+            case "/PesquisaProduto":
+                String[] aux = new String[9];
+                aux[0] = request.getParameter("descricao");
+                aux[1] = request.getParameter("data");
+                aux[2] = request.getParameter("classificacao");
+                aux[3] = request.getParameter("precoMinimo");
+                aux[4] = request.getParameter("precoMaximo");
+                aux[5] = request.getParameter("loja");
+                aux[6] = request.getParameter("disponibilidade");
+                aux[7] = request.getParameter("sentido");
+                aux[8] = request.getParameter("ordenarPor");
+
+                session.setAttribute("listaArgumentos", aux);
+                response.sendRedirect(request.getContextPath() + "/home");
                 break;
         }
     }

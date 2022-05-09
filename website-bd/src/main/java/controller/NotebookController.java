@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.parser.ParseException;
 
-@WebServlet(name = "NotebookController", urlPatterns = {"/notebooks", "/update", "/RequisicaoPesquisa"})
+@WebServlet(name = "NotebookController", urlPatterns = {"/notebooks", "/update", "/PesquisaNotebook"})
 public class NotebookController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, FileNotFoundException {
@@ -63,7 +63,7 @@ public class NotebookController extends HttpServlet {
         HttpSession session = request.getSession();
 
         switch (request.getServletPath()){
-            case "/RequisicaoPesquisa":
+            case "/PesquisaNotebook":
 
                 String descricao = request.getParameter("descricao");
                 String marca = request.getParameter("marca");
