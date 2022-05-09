@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.List;
 import model.Produto;
 
-@WebServlet(name = "ProdutoController", urlPatterns = {"", "/home", "/graficos", "/PesquisaProduto", "/graficosAux"})
+@WebServlet(name = "ProdutoController", urlPatterns = {"", "/home", "/graficos", "/PesquisaProduto", "/graficosAux", "/graficosNotebook"})
 public class ProdutoController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, FileNotFoundException {
@@ -20,13 +20,12 @@ public class ProdutoController extends HttpServlet {
         HttpSession session = request.getSession();
 
         switch (request.getServletPath()) { 
-            case "": {
+            case "": 
                 dispatcher = request.getRequestDispatcher(request.getContextPath() + "/home");
                 dispatcher.forward(request, response);
                 break;
-            }
             
-            case "/home": {
+            case "/home": 
                 try (DAOFactory daoFactory = DAOFactory.getInstance()) {
                     dao_produto = daoFactory.getProdutoDAO();
                     
@@ -40,9 +39,9 @@ public class ProdutoController extends HttpServlet {
                 dispatcher = request.getRequestDispatcher("/view/page/index.jsp");
                 dispatcher.forward(request, response);
                 break;
-            }
+            
                 
-            case "/graficos": {               
+            case "/graficos":          
                 try (DAOFactory daoFactory = DAOFactory.getInstance()) {
                     dao_produto = daoFactory.getProdutoDAO();
                     String[] aux = new String[9];
@@ -73,8 +72,70 @@ public class ProdutoController extends HttpServlet {
                 
                 dispatcher = request.getRequestDispatcher("/view/page/graficos.jsp");
                 dispatcher.forward(request, response);
+  
+            
+            case "/graficosNotebook":                
+                try (DAOFactory daoFactory = DAOFactory.getInstance()) {
+                    dao_produto = daoFactory.getProdutoDAO();
+                    String[] auxAmazon = new String[9];
+                    auxAmazon[0] = ((String) session.getAttribute("descricao"));
+                    auxAmazon[1] = "";
+                    auxAmazon[2] = "";
+                    auxAmazon[3] = "";
+                    auxAmazon[4] = "";
+                    auxAmazon[5] = "Amazon";
+                    auxAmazon[6] = "1";
+                    auxAmazon[7] = "ASC";
+                    auxAmazon[8] = "loja_vende_notebook.data_crawling";
+                    dao_produto.setArguments(auxAmazon);
+                    
+                    List<Produto> lista_amazon = dao_produto.all();
+                    request.setAttribute("listaAmazon", lista_amazon);
+                    
+                    
+                    
+                    String[] auxKabum = new String[9];
+                    auxKabum[0] = ((String) session.getAttribute("descricao"));
+                    auxKabum[1] = "";
+                    auxKabum[2] = "";
+                    auxKabum[3] = "";
+                    auxKabum[4] = "";
+                    auxKabum[5] = "Kabum";
+                    auxKabum[6] = "1";
+                    auxKabum[7] = "ASC";
+                    auxKabum[8] = "loja_vende_notebook.data_crawling";
+                    dao_produto.setArguments(auxKabum);
+                    
+                    List<Produto> lista_kabum = dao_produto.all();
+                    request.setAttribute("listaKabum", lista_kabum);
+                    
+                    
+                    String[] auxML = new String[9];
+                    auxML[0] = ((String) session.getAttribute("descricao"));
+                    auxML[1] = "";
+                    auxML[2] = "";
+                    auxML[3] = "";
+                    auxML[4] = "";
+                    auxML[5] = "MagazineLuiza";
+                    auxML[6] = "1";
+                    auxML[7] = "ASC";
+                    auxML[8] = "loja_vende_notebook.data_crawling";
+                    dao_produto.setArguments(auxML);
+                    
+                    List<Produto> lista_ml = dao_produto.all();
+                    request.setAttribute("listaMagazineLuiza", lista_ml);
+                    
+                    request.setAttribute("id_notebook", session.getAttribute("id_notebook"));
+                    request.setAttribute("descricao", session.getAttribute("descricao"));
+                    request.setAttribute("marca", session.getAttribute("marca"));
+                    request.setAttribute("modelo", session.getAttribute("modelo"));
+                    
+                } catch(ClassNotFoundException | IOException | SQLException ex) {
+                    request.getSession().setAttribute("error", ex.getMessage());
+                }
                 
-             }                        
+                dispatcher = request.getRequestDispatcher("/view/page/graficosNotebooks.jsp");
+                dispatcher.forward(request, response);
         }
     }  
 

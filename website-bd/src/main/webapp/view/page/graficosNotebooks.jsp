@@ -8,17 +8,50 @@
 <%
 Gson gsonObj = new Gson();
 Map<Object,Object> map = null;
-List<Map<Object,Object>> list = new ArrayList<Map<Object,Object>>();
+List<Map<Object,Object>> listAmazonP = new ArrayList<Map<Object,Object>>();
+List<Map<Object,Object>> listAmazonC = new ArrayList<Map<Object,Object>>();
 
-List<Produto> l_prod = (List<Produto>)request.getAttribute("listaGrafico");
+List<Produto> l_prodAmazon = (List<Produto>)request.getAttribute("listaAmazon");
 
-for(Produto p : l_prod){
-    map = new HashMap<Object,Object>(); map.put("label", p.getDataCrawling()); map.put("y", p.getPreco()); list.add(map);
+for(Produto p : l_prodAmazon){
+    map = new HashMap<Object,Object>(); map.put("label", p.getDataCrawling()); map.put("y", p.getPreco()); listAmazonP.add(map);
+    map = new HashMap<Object,Object>(); map.put("label", p.getDataCrawling()); map.put("y", p.getClassificacao()); listAmazonC.add(map);
 }
  
-String dataPoints = gsonObj.toJson(list);
+String dataAmazonP = gsonObj.toJson(listAmazonP);
+String dataAmazonC = gsonObj.toJson(listAmazonC);
 
-System.out.println(dataPoints);
+System.out.println("Amazon: " + dataAmazonP);
+
+List<Map<Object,Object>> listKabumP = new ArrayList<Map<Object,Object>>();
+List<Map<Object,Object>> listKabumC = new ArrayList<Map<Object,Object>>();
+
+List<Produto> l_prodKabum = (List<Produto>)request.getAttribute("listaKabum");
+
+for(Produto p : l_prodKabum){
+    map = new HashMap<Object,Object>(); map.put("label", p.getDataCrawling()); map.put("y", p.getPreco()); listKabumP.add(map);
+    map = new HashMap<Object,Object>(); map.put("label", p.getDataCrawling()); map.put("y", p.getClassificacao()); listKabumC.add(map);
+}
+ 
+String dataKabumP = gsonObj.toJson(listKabumP);
+String dataKabumC = gsonObj.toJson(listKabumC);
+
+System.out.println("Kabum: " + dataKabumP);
+
+List<Map<Object,Object>> listMLP = new ArrayList<Map<Object,Object>>();
+List<Map<Object,Object>> listMLC = new ArrayList<Map<Object,Object>>();
+
+List<Produto> l_prodML = (List<Produto>)request.getAttribute("listaMagazineLuiza");
+
+for(Produto p : l_prodML){
+    map = new HashMap<Object,Object>(); map.put("label", p.getDataCrawling()); map.put("y", p.getPreco()); listMLP.add(map);
+    map = new HashMap<Object,Object>(); map.put("label", p.getDataCrawling()); map.put("y", p.getClassificacao()); listMLC.add(map);
+}
+ 
+String dataMLP = gsonObj.toJson(listMLP);
+String dataMLC = gsonObj.toJson(listMLC);
+
+System.out.println("MagazineLuiza: " + dataMLP);
 %>
 
 <!DOCTYPE html>
@@ -35,41 +68,33 @@ System.out.println(dataPoints);
         <table class="table" align="center" border="0" cellpadding="0">
             <thead class="#87CEFA" align="center">
                 <tr>
+                    <th scope="col" align="center">ID</th>
                     <th scope="col" align="center">DESCRIÇÃO</th>
-                    <th scope="col" align="center">VALOR</th>
-                    <th scope="col" align="left">CLASSIFICAÇÃO</th>
-                    <th scope="col" align="center">LOJA</th>
-                    <th scope="col" align="center">DATA</th>
-                    <th scope="col" align="center">URL</th>
+                    <th scope="col" align="left">MARCA</th>
+                    <th scope="col" align="center">MODELO</th>
                 </tr>
             </thead>
             <tbody align="center">
                     <tr>                      
                         <td align="left">
+                            <%=request.getAttribute("id_notebook")%>
+                        </td>
+                        <td align="center">
                             <%=request.getAttribute("descricao")%>
                         </td>
                         <td align="center">
-                            <%=request.getAttribute("valor")%>
-                        </td>
-                        <td align="center">
-                            <%=request.getAttribute("classificacao")%>
+                            <%=request.getAttribute("marca")%>
                         </td>  
                         <td align="center">
-                            <%=request.getAttribute("loja")%>
+                            <%=request.getAttribute("modelo")%>
                         </td>                     
-                        <td align="center">
-                            <%=request.getAttribute("data")%>
-                        </td>
-                        <td align="center">
-                            <a href="<%=request.getAttribute("url")%>">Link</a>
-                        </td>
                     </tr>
             </tbody>
         </table>
         <script type="text/javascript">
             window.onload = function() { 
 
-            var chart = new CanvasJS.Chart("chartContainer", {
+            var chart1 = new CanvasJS.Chart("chartContainer1", {
                     theme: "light2",
                     title: {
                             text: "Evolução dos Preços"
@@ -83,16 +108,68 @@ System.out.println(dataPoints);
                     },
                     data: [{
                             type: "line",
-                            yValueFormatString: "#,##0mn tonnes",
-                            dataPoints : <%out.print(dataPoints);%>
-                    }]
+                            yValueFormatString: "R$####.##",
+                            name: "Amazon",
+                            dataPoints : <%out.print(dataAmazonP);%>
+                        },
+                        {
+                            type: "line",
+                            yValueFormatString: "R$####.##",
+                            name: "Kabum",
+                            dataPoints : <%out.print(dataKabumP);%>
+                        },
+                        {
+                            type: "line",
+                            yValueFormatString: "R$####.##",
+                            name: "MagazineLuiza",
+                            dataPoints : <%out.print(dataMLP);%>
+                        }]
             });
-            chart.render();
+            
+            var chart2 = new CanvasJS.Chart("chartContainer2", {
+                    theme: "light2",
+                    title: {
+                            text: "Evolução da Classificação"
+                    },
+                    axisX: {
+                            title: "Data Crawling"
+                    },
+                    axisY: {
+                            title: "Classificação",
+                            maximum: 5.5,
+                            includeZero: true
+                    },
+                    data: [{
+                            type: "line",
+                            yValueFormatString: "#,#",
+                            name: "Amazon",
+                            dataPoints : <%out.print(dataAmazonC);%>
+                        },
+                        {
+                            type: "line",
+                            yValueFormatString: "#,#",
+                            name: "Kabum",
+                            dataPoints : <%out.print(dataKabumC);%>
+                        },
+                        {
+                            type: "line",
+                            yValueFormatString: "#,#",
+                            name: "MagazineLuiza",
+                            dataPoints : <%out.print(dataMLC);%>
+                        }]
+            });
+            
+            chart1.render();
+            chart2.render();
 
             }
         </script>
     </div>
-    <div id="chartContainer" style="height: 370px; width: 50%; margin:0 auto;"></div>
+    <br>
+    <div id="chartContainer1" style="height: 370px; width: 50%; margin:0 auto;"></div>
+    <br>
+    <br>
+    <div id="chartContainer2" style="height: 370px; width: 50%; margin:0 auto;"></div>
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <br>
     <%@include file="/view/include/scripts.jsp"%>

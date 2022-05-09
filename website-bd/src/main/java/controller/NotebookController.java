@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.parser.ParseException;
 
-@WebServlet(name = "NotebookController", urlPatterns = {"/notebooks", "/update", "/PesquisaNotebook", "/graficosNotebooks"})
+@WebServlet(name = "NotebookController", urlPatterns = {"/notebooks", "/update", "/PesquisaNotebook", "/graficosNotebooksAux"})
 public class NotebookController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, FileNotFoundException {
@@ -80,22 +80,20 @@ public class NotebookController extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/notebooks");
                 break;
                 
-            case "/graficosNotebooks":
+            case "/graficosNotebooksAux":
 
                 String id_notebook = request.getParameter("id_notebook");
                 modelo = request.getParameter("modelo");
                 descricao = request.getParameter("descricao");
                 marca = request.getParameter("marca");
 
-                System.out.println("Valores Lidos:" + id_notebook + modelo + descricao + marca);
 
                 session.setAttribute("id_notebook", id_notebook);
                 session.setAttribute("modelo", modelo);
                 session.setAttribute("descricao", descricao);
                 session.setAttribute("marca", marca);
                 
-                dispatcher = request.getRequestDispatcher("/view/page/graficosNotebooks.jsp");
-                dispatcher.forward(request, response);
+                response.sendRedirect(request.getContextPath() + "/graficosNotebook"); 
                 break;
         }
     }
