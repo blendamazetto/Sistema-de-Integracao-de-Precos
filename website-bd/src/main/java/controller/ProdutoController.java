@@ -49,7 +49,8 @@ public class ProdutoController extends HttpServlet {
 
         HttpSession session = request.getSession();
         RequestDispatcher dispatcher;
-
+        DAO<Produto> dao_produto;
+        
         switch (request.getServletPath()){
             case "/graficos":
 
@@ -68,6 +69,25 @@ public class ProdutoController extends HttpServlet {
                 session.setAttribute("loja", loja);
                 session.setAttribute("data", data);
                 session.setAttribute("url", url);
+                
+                try (DAOFactory daoFactory = DAOFactory.getInstance()) {
+                    dao_produto = daoFactory.getProdutoDAO();
+                    String[] aux = new String[9];
+                    aux[0] = descricao;
+                    aux[1] = "";
+                    aux[2] = "";
+                    aux[3] = "";
+                    aux[4] = "";
+                    aux[5] = loja;
+                    aux[6] = "1";
+                    aux[7] = "ASC";
+                    aux[8] = "loja_vende_notebook.data_crawling";
+                    dao_produto.setArguments(aux);
+                    List<Produto> lista_produtos = dao_produto.all();
+                    session.setAttribute("listaGrafico", lista_produtos);
+                } catch(ClassNotFoundException | IOException | SQLException ex) {
+                    request.getSession().setAttribute("error", ex.getMessage());
+                }
                 
                 dispatcher = request.getRequestDispatcher("/view/page/graficos.jsp");
                 dispatcher.forward(request, response);
