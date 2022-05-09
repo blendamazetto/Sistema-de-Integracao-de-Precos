@@ -134,7 +134,7 @@
                                 <input type="hidden" name="loja" value="${produto.nomeLoja}">
                                 <input type="hidden" name="data" value="${produto.dataCrawling}">
                                 <input type="hidden" name="url" value="${produto.urlProduto}">
-                                <input type="submit" value="Submit">
+                                <input type="submit" class="btn btn-primary" value="Detalhes">
                             </form>
                         </td>
                     </tr>

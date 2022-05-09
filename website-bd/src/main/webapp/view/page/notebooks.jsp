@@ -76,7 +76,7 @@
                                 <input type="hidden" name="modelo" value="${notebook.modelo}">
                                 <input type="hidden" name="descricao" value="${notebook.descricao}">
                                 <input type="hidden" name="marca" value="${notebook.marca}">
-                                <input type="submit" value="Submit">
+                                <input type="submit" class="btn btn-primary" value="Detalhes">
                             </form>
                         </td>
                     </tr>
