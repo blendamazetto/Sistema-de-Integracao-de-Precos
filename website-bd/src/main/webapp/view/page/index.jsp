@@ -127,7 +127,7 @@
                             <span><c:out value="${produto.dataCrawling}"/></span>
                         </td>
                         <td align="center">                          
-                            <form action="/graficos" method="post">
+                            <form action="/graficosAux" method="post">
                                 <input type="hidden" name="classificacao" value="${produto.getClassificacaoAsString()}">
                                 <input type="hidden" name="descricao" value="${produto.descricao}">
                                 <input type="hidden" name="valor" value="${produto.getPrecoAsString()}">

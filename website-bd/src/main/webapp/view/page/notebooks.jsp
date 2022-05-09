@@ -71,7 +71,7 @@
                             <span><c:out value="${notebook.marca}"/></span>
                         </td>
                         <td align="center">                          
-                            <form action="/graficosNotebooks" method="post">
+                            <form action="/graficosNotebooksAux" method="post">
                                 <input type="hidden" name="id_notebook" value="${notebook.id_notebook}">
                                 <input type="hidden" name="modelo" value="${notebook.modelo}">
                                 <input type="hidden" name="descricao" value="${notebook.descricao}">

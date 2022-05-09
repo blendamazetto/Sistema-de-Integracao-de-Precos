@@ -53,8 +53,7 @@ public class NotebookController extends HttpServlet {
                dispatcher = request.getRequestDispatcher("/view/page/notebooks.jsp");
                dispatcher.forward(request, response);
                 
-               break;
-            
+               break;           
         }
     }    
 

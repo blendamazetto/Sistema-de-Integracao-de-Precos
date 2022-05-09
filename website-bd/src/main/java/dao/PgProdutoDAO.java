@@ -198,7 +198,7 @@ public class PgProdutoDAO implements ProdutoDAO {
                 i++;
             }
             if (disponibilidade != 2){
-                statement.setInt(i, disponibilidade);
+                statement.setBoolean(i, disponibilidade == 1);
                 i++;
             }
             

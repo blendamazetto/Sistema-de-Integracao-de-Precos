@@ -1,5 +1,26 @@
-<%@ page contentType="text/html" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@ page import="java.util.*" %>
+<%@ page import="model.Produto" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.google.gson.Gson"%>
+<%@ page import="com.google.gson.JsonObject"%>
+ 
+<%
+Gson gsonObj = new Gson();
+Map<Object,Object> map = null;
+List<Map<Object,Object>> list = new ArrayList<Map<Object,Object>>();
+
+List<Produto> l_prod = (List<Produto>)request.getAttribute("listaGrafico");
+
+for(Produto p : l_prod){
+    map = new HashMap<Object,Object>(); map.put("label", p.getDataCrawling()); map.put("y", p.getPreco()); list.add(map);
+}
+ 
+String dataPoints = gsonObj.toJson(list);
+
+System.out.println(dataPoints);
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,27 +46,54 @@
             <tbody align="center">
                     <tr>                      
                         <td align="left">
-                            <%=request.getParameter("descricao")%>
+                            <%=request.getAttribute("descricao")%>
                         </td>
                         <td align="center">
-                            <%=request.getParameter("valor")%>
+                            <%=request.getAttribute("valor")%>
                         </td>
                         <td align="center">
-                            <%=request.getParameter("classificacao")%>
+                            <%=request.getAttribute("classificacao")%>
                         </td>  
                         <td align="center">
-                            <%=request.getParameter("loja")%>
+                            <%=request.getAttribute("loja")%>
                         </td>                     
                         <td align="center">
-                            <%=request.getParameter("data")%>
+                            <%=request.getAttribute("data")%>
                         </td>
                         <td align="center">
-                            <a href="<%=request.getParameter("url")%>">Link</a>
+                            <a href="<%=request.getAttribute("url")%>">Link</a>
                         </td>
                     </tr>
             </tbody>
         </table>
+        <script type="text/javascript">
+            window.onload = function() { 
+
+            var chart = new CanvasJS.Chart("chartContainer", {
+                    theme: "light2",
+                    title: {
+                            text: "Evolução dos Preços"
+                    },
+                    axisX: {
+                            title: "Data Crawling"
+                    },
+                    axisY: {
+                            title: "Preço",
+                            includeZero: true
+                    },
+                    data: [{
+                            type: "line",
+                            yValueFormatString: "#,##0mn tonnes",
+                            dataPoints : <%out.print(dataPoints);%>
+                    }]
+            });
+            chart.render();
+
+            }
+        </script>
     </div>
+    <div id="chartContainer" style="height: 370px; width: 50%; margin:0 auto;"></div>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <br>
     <%@include file="/view/include/scripts.jsp"%>
 </body>
