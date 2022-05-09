@@ -14,34 +14,27 @@
         <table class="table" align="center" border="0" cellpadding="0">
             <thead class="#87CEFA" align="center">
                 <tr>
-                    <th scope="col" align="center">DESCRIÇÃO</th>
-                    <th scope="col" align="center">VALOR</th>
-                    <th scope="col" align="left">CLASSIFICAÇÃO</th>
-                    <th scope="col" align="center">LOJA</th>
-                    <th scope="col" align="center">DATA</th>
-                    <th scope="col" align="center">URL</th>
+                    <th scope="col" align="center">ID NOTEBOOK</th>
+                    <th scope="col" align="center">MODELO</th>
+                    <th scope="col" align="left">DESCRICÃO</th>
+                    <th scope="col" align="center">MARCA</th>
+
                 </tr>
             </thead>
             <tbody align="center">
                     <tr>                      
-                        <td align="left">
+                        <td align="center">
+                            <%=request.getParameter("id_notebook")%>
+                        </td>
+                        <td align="center">
+                            <%=request.getParameter("modelo")%>
+                        </td>
+                        <td align="center">
                             <%=request.getParameter("descricao")%>
-                        </td>
-                        <td align="center">
-                            <%=request.getParameter("valor")%>
-                        </td>
-                        <td align="center">
-                            <%=request.getParameter("classificacao")%>
                         </td>  
                         <td align="center">
-                            <%=request.getParameter("loja")%>
+                            <%=request.getParameter("marca")%>
                         </td>                     
-                        <td align="center">
-                            <%=request.getParameter("data")%>
-                        </td>
-                        <td align="center">
-                            <a href="<%=request.getParameter("url")%>">Link</a>
-                        </td>
                     </tr>
             </tbody>
         </table>

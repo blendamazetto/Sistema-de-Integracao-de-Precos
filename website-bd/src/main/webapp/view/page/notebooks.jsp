@@ -52,6 +52,7 @@
                     <th scope="col" align="center">MODELO</th>
                     <th scope="col" align="left">DESCRIÇÃO</th>
                     <th scope="col" align="center">MARCA</th>
+                    <th scope="col" align="center">GRÁFICOS</th>
                 </tr>
             </thead>
             <tbody align="center">
@@ -68,6 +69,15 @@
                         </td>
                         <td align="center">
                             <span><c:out value="${notebook.marca}"/></span>
+                        </td>
+                        <td align="center">                          
+                            <form action="/graficosNotebooks" method="post">
+                                <input type="hidden" name="id_notebook" value="${notebook.id_notebook}">
+                                <input type="hidden" name="modelo" value="${notebook.modelo}">
+                                <input type="hidden" name="descricao" value="${notebook.descricao}">
+                                <input type="hidden" name="marca" value="${notebook.marca}">
+                                <input type="submit" value="Submit">
+                            </form>
                         </td>
                     </tr>
                 </c:forEach>

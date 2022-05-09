@@ -32,7 +32,7 @@ class AmazonCrawling:
         except:
             return None
         try:
-            aux = soup.find('span', 'a-price aok-align-center priceToPay')
+            aux = soup.find('span', 'a-price aok-align-center reinventPricePriceToPayMargin priceToPay')
             result["preco"] = aux.find('span', 'a-price-whole').text + aux.find('span', 'a-price-fraction').text
         except:
             result["preco"] = ''

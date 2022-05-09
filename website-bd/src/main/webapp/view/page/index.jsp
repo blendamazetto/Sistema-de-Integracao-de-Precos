@@ -105,6 +105,7 @@
                     <th scope="col" align="center">VALOR</th>
                     <th scope="col" align="center">LOJA</th>
                     <th scope="col" align="center">DATA</th>
+                    <th scope="col" align="center">GRÁFICOS</th>
                 </tr>
             </thead>
             <tbody align="center">

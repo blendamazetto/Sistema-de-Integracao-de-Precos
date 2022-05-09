@@ -5,7 +5,7 @@ from crawlingAmazon import AmazonCrawling
 
 def main():
     start = time.time()
-    crawling = AmazonCrawling(True, 51)
+    crawling = AmazonCrawling(True, 30)
     urls = crawling.extract_urls()
     results = []
     today = date.today()
