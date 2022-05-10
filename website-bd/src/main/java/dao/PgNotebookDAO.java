@@ -45,6 +45,11 @@ public class PgNotebookDAO implements NotebookDAO {
                                             "INSERT INTO lojas_notebook.loja_vende_notebook(id_notebook, nome_loja, classificacao, preco, disponibilidade, url_produto, data_crawling) " +
                                             "VALUES(?, ?, ?, ?, ?, ?, ?);";
     
+    private static final String QUERY_NOTEBOOK=
+                                            "SELECT * " +
+                                            "FROM lojas_notebook.notebook " +
+                                            "WHERE descricao = ? OR modelo = ?;";
+    
     private static final String QUERY_NOTEBOOK_DESCRICAO =
                                             "SELECT * " +
                                             "FROM lojas_notebook.notebook " +
@@ -208,8 +213,9 @@ public class PgNotebookDAO implements NotebookDAO {
                             }
                         }
                     }                   
-                    try (PreparedStatement statement = connection.prepareStatement(QUERY_NOTEBOOK_DESCRICAO)) {
+                    try (PreparedStatement statement = connection.prepareStatement(QUERY_NOTEBOOK)) {
                         statement.setString(1, descricao);
+                        statement.setString(2, modelo);
                         try (ResultSet result = statement.executeQuery()) {
                             if (result.next()) {
                                 int idNotebook = result.getInt("id_notebook");

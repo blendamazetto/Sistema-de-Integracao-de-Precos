@@ -108,18 +108,21 @@ System.out.println("MagazineLuiza: " + dataMLP);
                     },
                     data: [{
                             type: "line",
+                            showInLegend: true,
                             yValueFormatString: "R$####.##",
                             name: "Amazon",
                             dataPoints : <%out.print(dataAmazonP);%>
                         },
                         {
                             type: "line",
+                            showInLegend: true,
                             yValueFormatString: "R$####.##",
                             name: "Kabum",
                             dataPoints : <%out.print(dataKabumP);%>
                         },
                         {
                             type: "line",
+                            showInLegend: true,
                             yValueFormatString: "R$####.##",
                             name: "MagazineLuiza",
                             dataPoints : <%out.print(dataMLP);%>
@@ -141,18 +144,21 @@ System.out.println("MagazineLuiza: " + dataMLP);
                     },
                     data: [{
                             type: "line",
+                            showInLegend: true,
                             yValueFormatString: "#,#",
                             name: "Amazon",
                             dataPoints : <%out.print(dataAmazonC);%>
                         },
                         {
                             type: "line",
+                            showInLegend: true,
                             yValueFormatString: "#,#",
                             name: "Kabum",
                             dataPoints : <%out.print(dataKabumC);%>
                         },
                         {
                             type: "line",
+                            showInLegend: true,
                             yValueFormatString: "#,#",
                             name: "MagazineLuiza",
                             dataPoints : <%out.print(dataMLC);%>

@@ -1,13 +1,13 @@
-D:\arquivos\3ano\bd\trabalhoBD\trabalho\Sistema-de-Integracao-de-Precos\website-bd\src\main\java\dao\DAO.java
-D:\arquivos\3ano\bd\trabalhoBD\trabalho\Sistema-de-Integracao-de-Precos\website-bd\src\main\java\dao\PgNotebookDAO.java
-D:\arquivos\3ano\bd\trabalhoBD\trabalho\Sistema-de-Integracao-de-Precos\website-bd\src\main\java\controller\ProdutoController.java
-D:\arquivos\3ano\bd\trabalhoBD\trabalho\Sistema-de-Integracao-de-Precos\website-bd\src\main\java\dao\ProdutoDAO.java
-D:\arquivos\3ano\bd\trabalhoBD\trabalho\Sistema-de-Integracao-de-Precos\website-bd\src\main\java\dao\DAOFactory.java
-D:\arquivos\3ano\bd\trabalhoBD\trabalho\Sistema-de-Integracao-de-Precos\website-bd\src\main\java\model\Notebook.java
-D:\arquivos\3ano\bd\trabalhoBD\trabalho\Sistema-de-Integracao-de-Precos\website-bd\src\main\java\dao\NotebookDAO.java
-D:\arquivos\3ano\bd\trabalhoBD\trabalho\Sistema-de-Integracao-de-Precos\website-bd\src\main\java\jdbc\ConnectionFactory.java
-D:\arquivos\3ano\bd\trabalhoBD\trabalho\Sistema-de-Integracao-de-Precos\website-bd\src\main\java\model\Produto.java
-D:\arquivos\3ano\bd\trabalhoBD\trabalho\Sistema-de-Integracao-de-Precos\website-bd\src\main\java\jdbc\PgConnectionFactory.java
-D:\arquivos\3ano\bd\trabalhoBD\trabalho\Sistema-de-Integracao-de-Precos\website-bd\src\main\java\dao\PgProdutoDAO.java
-D:\arquivos\3ano\bd\trabalhoBD\trabalho\Sistema-de-Integracao-de-Precos\website-bd\src\main\java\controller\NotebookController.java
-D:\arquivos\3ano\bd\trabalhoBD\trabalho\Sistema-de-Integracao-de-Precos\website-bd\src\main\java\dao\PgDAOFactory.java
+D:\blend\Documents\comp\Banco de Dados\site\Sistema-de-Integracao-de-Precos\website-bd\src\main\java\jdbc\ConnectionFactory.java
+D:\blend\Documents\comp\Banco de Dados\site\Sistema-de-Integracao-de-Precos\website-bd\src\main\java\dao\NotebookDAO.java
+D:\blend\Documents\comp\Banco de Dados\site\Sistema-de-Integracao-de-Precos\website-bd\src\main\java\controller\ProdutoController.java
+D:\blend\Documents\comp\Banco de Dados\site\Sistema-de-Integracao-de-Precos\website-bd\src\main\java\jdbc\PgConnectionFactory.java
+D:\blend\Documents\comp\Banco de Dados\site\Sistema-de-Integracao-de-Precos\website-bd\src\main\java\dao\ProdutoDAO.java
+D:\blend\Documents\comp\Banco de Dados\site\Sistema-de-Integracao-de-Precos\website-bd\src\main\java\controller\NotebookController.java
+D:\blend\Documents\comp\Banco de Dados\site\Sistema-de-Integracao-de-Precos\website-bd\src\main\java\dao\DAOFactory.java
+D:\blend\Documents\comp\Banco de Dados\site\Sistema-de-Integracao-de-Precos\website-bd\src\main\java\model\Produto.java
+D:\blend\Documents\comp\Banco de Dados\site\Sistema-de-Integracao-de-Precos\website-bd\src\main\java\dao\DAO.java
+D:\blend\Documents\comp\Banco de Dados\site\Sistema-de-Integracao-de-Precos\website-bd\src\main\java\dao\PgDAOFactory.java
+D:\blend\Documents\comp\Banco de Dados\site\Sistema-de-Integracao-de-Precos\website-bd\src\main\java\dao\PgNotebookDAO.java
+D:\blend\Documents\comp\Banco de Dados\site\Sistema-de-Integracao-de-Precos\website-bd\src\main\java\model\Notebook.java
+D:\blend\Documents\comp\Banco de Dados\site\Sistema-de-Integracao-de-Precos\website-bd\src\main\java\dao\PgProdutoDAO.java
