@@ -32,18 +32,18 @@
                         </div>
                         <div class="col">
                             <label for="inputClassificacao">Classificação</label>
-                            <input name="classificacao" type="number" min="0.0" max="5.0" step="0.5" class="form-control" id="inputClassificacao" placeholder="Insira a classificação minima do produto">
+                            <input name="classificacao" type="number" min="0.0" max="5.0" step="0.5" class="form-control" id="inputClassificacao" placeholder="Insira a classificação minima do notebook">
 
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="col">
                             <label for="inputMinimumPrice">Preço Mínimo</label>
-                            <input name="precoMinimo" type="number" min="0.00" max="10000.00" step="0.01" class="form-control" id="inputMinimumPrice" placeholder="Insira o preço mínimo do jogo em reais.">
+                            <input name="precoMinimo" type="number" min="0.00" max="10000.00" step="0.01" class="form-control" id="inputMinimumPrice" placeholder="Insira o preço mínimo do notebook em reais.">
                         </div>
                         <div class="col">
                             <label for="inputMaximumPrice">Preço Máximo</label>
-                            <input name="precoMaximo" type="number" min="0.00" max="10000.00" step="0.01" class="form-control" id="inputMaximumPrice" placeholder="Insira o preço máximo do jogo em reais.">
+                            <input name="precoMaximo" type="number" min="0.00" max="10000.00" step="0.01" class="form-control" id="inputMaximumPrice" placeholder="Insira o preço máximo do notebook em reais.">
                         </div>
                     </div>
                     <div class="form-row">

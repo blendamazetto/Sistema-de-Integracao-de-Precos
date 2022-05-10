@@ -33,7 +33,9 @@ public class NotebookController extends HttpServlet {
                 } catch(ClassNotFoundException | IOException | SQLException ex) {
                     request.getSession().setAttribute("error", ex.getMessage());
                 }
-
+                session.setAttribute("descricao", "");
+                session.setAttribute("marca", "");
+                session.setAttribute("modelo", "");
                 dispatcher = request.getRequestDispatcher("/view/page/notebooks.jsp");
                 dispatcher.forward(request, response);
                 break;
@@ -60,7 +62,6 @@ public class NotebookController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        RequestDispatcher dispatcher;
         String descricao;
         String marca;
         String modelo;

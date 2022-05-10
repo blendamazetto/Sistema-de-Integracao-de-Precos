@@ -35,7 +35,8 @@ public class ProdutoController extends HttpServlet {
                 } catch(ClassNotFoundException | IOException | SQLException ex) {
                     request.getSession().setAttribute("error", ex.getMessage());
                 }
-
+                
+                session.setAttribute("listaArgumentos", null);
                 dispatcher = request.getRequestDispatcher("/view/page/index.jsp");
                 dispatcher.forward(request, response);
                 break;
@@ -65,6 +66,13 @@ public class ProdutoController extends HttpServlet {
                     request.setAttribute("loja", session.getAttribute("loja"));
                     request.setAttribute("data", session.getAttribute("data"));
                     request.setAttribute("url", session.getAttribute("url"));
+                    
+                    session.setAttribute("classificacao", "");
+                    session.setAttribute("descricao", "");
+                    session.setAttribute("valor", "");
+                    session.setAttribute("loja", "");
+                    session.setAttribute("data", "");
+                    session.setAttribute("url", "");
                     
                 } catch(ClassNotFoundException | IOException | SQLException ex) {
                     request.getSession().setAttribute("error", ex.getMessage());
@@ -129,6 +137,11 @@ public class ProdutoController extends HttpServlet {
                     request.setAttribute("descricao", session.getAttribute("descricao"));
                     request.setAttribute("marca", session.getAttribute("marca"));
                     request.setAttribute("modelo", session.getAttribute("modelo"));
+                    
+                    session.setAttribute("id_notebook", "");
+                    session.setAttribute("modelo", "");
+                    session.setAttribute("descricao", "");
+                    session.setAttribute("marca", "");
                     
                 } catch(ClassNotFoundException | IOException | SQLException ex) {
                     request.getSession().setAttribute("error", ex.getMessage());
