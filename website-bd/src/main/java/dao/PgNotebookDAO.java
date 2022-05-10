@@ -168,6 +168,7 @@ public class PgNotebookDAO implements NotebookDAO {
             for (int j = 1; j < jsonArray.size(); j++) {
                 JSONObject notebook = (JSONObject) jsonArray.get(j);
                 String descricao = (String) notebook.get("descricao");
+                descricao = descricao.replaceAll("\'","");
                 String precoStr = (String) notebook.get("preco");
                 String modelo = (String) notebook.get("modelo");
                 modelo = modelo.replaceAll("\\s","");

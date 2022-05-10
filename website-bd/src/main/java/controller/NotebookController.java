@@ -89,10 +89,10 @@ public class NotebookController extends HttpServlet {
                 marca = request.getParameter("marca");
 
 
-                session.setAttribute("id_notebook", id_notebook);
-                session.setAttribute("modelo", modelo);
-                session.setAttribute("descricao", descricao);
-                session.setAttribute("marca", marca);
+                session.setAttribute("id_notebookG", id_notebook);
+                session.setAttribute("modeloG", modelo);
+                session.setAttribute("descricaoG", descricao);
+                session.setAttribute("marcaG", marca);
                 
                 response.sendRedirect(request.getContextPath() + "/graficosNotebook"); 
                 break;

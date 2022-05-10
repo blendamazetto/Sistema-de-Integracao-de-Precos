@@ -46,12 +46,12 @@ public class ProdutoController extends HttpServlet {
                 try (DAOFactory daoFactory = DAOFactory.getInstance()) {
                     dao_produto = daoFactory.getProdutoDAO();
                     String[] aux = new String[9];
-                    aux[0] = ((String) session.getAttribute("descricao"));
+                    aux[0] = ((String) session.getAttribute("descricaoG"));
                     aux[1] = "";
                     aux[2] = "";
                     aux[3] = "";
                     aux[4] = "";
-                    aux[5] = ((String) session.getAttribute("loja"));
+                    aux[5] = ((String) session.getAttribute("lojaG"));
                     aux[6] = "1";
                     aux[7] = "ASC";
                     aux[8] = "loja_vende_notebook.data_crawling";
@@ -60,19 +60,13 @@ public class ProdutoController extends HttpServlet {
                     List<Produto> lista_produtos = dao_produto.all();
                     request.setAttribute("listaGrafico", lista_produtos);
                     
-                    request.setAttribute("classificacao", session.getAttribute("classificacao"));
-                    request.setAttribute("descricao", session.getAttribute("descricao"));
-                    request.setAttribute("valor", session.getAttribute("valor"));
-                    request.setAttribute("loja", session.getAttribute("loja"));
-                    request.setAttribute("data", session.getAttribute("data"));
-                    request.setAttribute("url", session.getAttribute("url"));
+                    request.setAttribute("classificacao", session.getAttribute("classificacaoG"));
+                    request.setAttribute("descricao", session.getAttribute("descricaoG"));
+                    request.setAttribute("valor", session.getAttribute("valorG"));
+                    request.setAttribute("loja", session.getAttribute("lojaG"));
+                    request.setAttribute("data", session.getAttribute("dataG"));
+                    request.setAttribute("url", session.getAttribute("urlG"));
                     
-                    session.setAttribute("classificacao", "");
-                    session.setAttribute("descricao", "");
-                    session.setAttribute("valor", "");
-                    session.setAttribute("loja", "");
-                    session.setAttribute("data", "");
-                    session.setAttribute("url", "");
                     
                 } catch(ClassNotFoundException | IOException | SQLException ex) {
                     request.getSession().setAttribute("error", ex.getMessage());
@@ -86,7 +80,7 @@ public class ProdutoController extends HttpServlet {
                 try (DAOFactory daoFactory = DAOFactory.getInstance()) {
                     dao_produto = daoFactory.getProdutoDAO();
                     String[] auxAmazon = new String[9];
-                    auxAmazon[0] = ((String) session.getAttribute("descricao"));
+                    auxAmazon[0] = ((String) session.getAttribute("descricaoG"));
                     auxAmazon[1] = "";
                     auxAmazon[2] = "";
                     auxAmazon[3] = "";
@@ -103,7 +97,7 @@ public class ProdutoController extends HttpServlet {
                     
                     
                     String[] auxKabum = new String[9];
-                    auxKabum[0] = ((String) session.getAttribute("descricao"));
+                    auxKabum[0] = ((String) session.getAttribute("descricaoG"));
                     auxKabum[1] = "";
                     auxKabum[2] = "";
                     auxKabum[3] = "";
@@ -119,7 +113,7 @@ public class ProdutoController extends HttpServlet {
                     
                     
                     String[] auxML = new String[9];
-                    auxML[0] = ((String) session.getAttribute("descricao"));
+                    auxML[0] = ((String) session.getAttribute("descricaoG"));
                     auxML[1] = "";
                     auxML[2] = "";
                     auxML[3] = "";
@@ -133,15 +127,11 @@ public class ProdutoController extends HttpServlet {
                     List<Produto> lista_ml = dao_produto.all();
                     request.setAttribute("listaMagazineLuiza", lista_ml);
                     
-                    request.setAttribute("id_notebook", session.getAttribute("id_notebook"));
-                    request.setAttribute("descricao", session.getAttribute("descricao"));
-                    request.setAttribute("marca", session.getAttribute("marca"));
-                    request.setAttribute("modelo", session.getAttribute("modelo"));
-                    
-                    session.setAttribute("id_notebook", "");
-                    session.setAttribute("modelo", "");
-                    session.setAttribute("descricao", "");
-                    session.setAttribute("marca", "");
+                    request.setAttribute("id_notebook", session.getAttribute("id_notebookG"));
+                    request.setAttribute("descricao", session.getAttribute("descricaoG"));
+                    request.setAttribute("marca", session.getAttribute("marcaG"));
+                    request.setAttribute("modelo", session.getAttribute("modeloG"));
+                   
                     
                 } catch(ClassNotFoundException | IOException | SQLException ex) {
                     request.getSession().setAttribute("error", ex.getMessage());
@@ -169,12 +159,12 @@ public class ProdutoController extends HttpServlet {
 
                 System.out.println("Valores Lidos:" + classificacao + descricao + valor + loja + data);
 
-                session.setAttribute("classificacao", classificacao);
-                session.setAttribute("descricao", descricao);
-                session.setAttribute("valor", valor);
-                session.setAttribute("loja", loja);
-                session.setAttribute("data", data);
-                session.setAttribute("url", url);
+                session.setAttribute("classificacaoG", classificacao);
+                session.setAttribute("descricaoG", descricao);
+                session.setAttribute("valorG", valor);
+                session.setAttribute("lojaG", loja);
+                session.setAttribute("dataG", data);
+                session.setAttribute("urlG", url);
                 
                 response.sendRedirect(request.getContextPath() + "/graficos");               
                 break;
