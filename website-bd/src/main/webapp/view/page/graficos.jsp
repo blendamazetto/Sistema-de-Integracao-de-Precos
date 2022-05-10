@@ -14,8 +14,16 @@ List<Map<Object,Object>> listC = new ArrayList<Map<Object,Object>>();
 List<Produto> l_prod = (List<Produto>)request.getAttribute("listaGrafico");
 
 for(Produto p : l_prod){
-    map = new HashMap<Object,Object>(); map.put("label", p.getDataCrawling()); map.put("y", p.getPreco()); listP.add(map);
-    map = new HashMap<Object,Object>(); map.put("label", p.getDataCrawling()); map.put("y", p.getClassificacao()); listC.add(map);
+    map = new HashMap<Object,Object>(); 
+    map.put("label", p.getDataCrawling()); 
+    map.put("y", p.getPreco()); 
+    listP.add(map);
+    if (p.getClassificacao() > 0.0){
+        map = new HashMap<Object,Object>(); 
+        map.put("label", p.getDataCrawling()); 
+        map.put("y", p.getClassificacao()); 
+        listC.add(map);
+    }
 }
  
 String dataPointsP = gsonObj.toJson(listP);

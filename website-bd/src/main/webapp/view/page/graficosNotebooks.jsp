@@ -14,8 +14,16 @@ List<Map<Object,Object>> listAmazonC = new ArrayList<Map<Object,Object>>();
 List<Produto> l_prodAmazon = (List<Produto>)request.getAttribute("listaAmazon");
 
 for(Produto p : l_prodAmazon){
-    map = new HashMap<Object,Object>(); map.put("label", p.getDataCrawling()); map.put("y", p.getPreco()); listAmazonP.add(map);
-    map = new HashMap<Object,Object>(); map.put("label", p.getDataCrawling()); map.put("y", p.getClassificacao()); listAmazonC.add(map);
+    map = new HashMap<Object,Object>(); 
+    map.put("label", p.getDataCrawling()); 
+    map.put("y", p.getPreco()); 
+    listAmazonP.add(map);
+    if (p.getClassificacao() > 0.0){
+        map = new HashMap<Object,Object>(); 
+        map.put("label", p.getDataCrawling()); 
+        map.put("y", p.getClassificacao()); 
+        listAmazonC.add(map);
+    }
 }
  
 String dataAmazonP = gsonObj.toJson(listAmazonP);
@@ -29,8 +37,16 @@ List<Map<Object,Object>> listKabumC = new ArrayList<Map<Object,Object>>();
 List<Produto> l_prodKabum = (List<Produto>)request.getAttribute("listaKabum");
 
 for(Produto p : l_prodKabum){
-    map = new HashMap<Object,Object>(); map.put("label", p.getDataCrawling()); map.put("y", p.getPreco()); listKabumP.add(map);
-    map = new HashMap<Object,Object>(); map.put("label", p.getDataCrawling()); map.put("y", p.getClassificacao()); listKabumC.add(map);
+    map = new HashMap<Object,Object>(); 
+    map.put("label", p.getDataCrawling()); 
+    map.put("y", p.getPreco()); 
+    listKabumP.add(map);
+    if (p.getClassificacao() > 0.0){
+        map = new HashMap<Object,Object>(); 
+        map.put("label", p.getDataCrawling()); 
+        map.put("y", p.getClassificacao()); 
+        listKabumC.add(map);
+    }
 }
  
 String dataKabumP = gsonObj.toJson(listKabumP);
@@ -44,8 +60,16 @@ List<Map<Object,Object>> listMLC = new ArrayList<Map<Object,Object>>();
 List<Produto> l_prodML = (List<Produto>)request.getAttribute("listaMagazineLuiza");
 
 for(Produto p : l_prodML){
-    map = new HashMap<Object,Object>(); map.put("label", p.getDataCrawling()); map.put("y", p.getPreco()); listMLP.add(map);
-    map = new HashMap<Object,Object>(); map.put("label", p.getDataCrawling()); map.put("y", p.getClassificacao()); listMLC.add(map);
+    map = new HashMap<Object,Object>(); 
+    map.put("label", p.getDataCrawling()); 
+    map.put("y", p.getPreco()); 
+    listMLP.add(map);
+    if (p.getClassificacao() > 0.0){
+        map = new HashMap<Object,Object>(); 
+        map.put("label", p.getDataCrawling()); 
+        map.put("y", p.getClassificacao()); 
+        listMLC.add(map);
+    }
 }
  
 String dataMLP = gsonObj.toJson(listMLP);
